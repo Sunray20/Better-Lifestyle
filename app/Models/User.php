@@ -28,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
+    // TODO: add is_admin
     protected $hidden = [
         'password',
         'remember_token',
