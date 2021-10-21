@@ -14,6 +14,7 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_admin')->default(false);
             $table->string('unit', 50)->default('kg');
             $table->double('weight', 4, 1)->default('70');
             $table->double('target_weight', 4, 1)->default('75');
@@ -30,7 +31,7 @@ class UpdateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['unit', 'weight', 'target_weight', 'diet_goal', 'target_kcal']);
+            $table->dropColumn(['is_admin', 'unit', 'weight', 'target_weight', 'diet_goal', 'target_kcal']);
         });
     }
 }

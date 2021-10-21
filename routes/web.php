@@ -22,6 +22,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('/excercises', ExcerciseController::class)->middleware(['auth', 'verified']);
+Route::resource('/excercises', ExcerciseController::class)->middleware(['auth', 'verified', 'is_admin']);
+Route::get('/excercises', [ExcerciseController::class, 'index'])->withoutMiddleware('is_admin');
+Route::get('/excercises/{excercise}', [ExcerciseController::class, 'show'])->withoutMiddleware('is_admin');
 
 require __DIR__.'/auth.php';
