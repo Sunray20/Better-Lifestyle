@@ -15,7 +15,7 @@ class UpdateUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('is_admin')->default(false);
-            $table->string('unit', 50)->default('kg');
+            $table->enum('unit', ['kg', 'pound'])->default('kg');
             $table->double('weight', 4, 1)->default('70');
             $table->double('target_weight', 4, 1)->default('75');
             $table->enum('diet_goal', ['maintain', 'bulk', 'cut'])->default('maintain');

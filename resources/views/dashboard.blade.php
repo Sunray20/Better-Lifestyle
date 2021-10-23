@@ -12,6 +12,7 @@
                     You're logged in!
                 </div>
                 <a href="/excercises">Excercises</a>
+                <a href="/user/{{ auth()->user()->id }}">User Datas</a>
             </div>
         </div>
     </div>

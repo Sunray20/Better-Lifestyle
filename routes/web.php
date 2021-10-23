@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcerciseController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,9 @@ Route::get('/dashboard', function () {
 Route::resource('/excercises', ExcerciseController::class)->middleware(['auth', 'verified', 'is_admin']);
 Route::get('/excercises', [ExcerciseController::class, 'index'])->withoutMiddleware('is_admin');
 Route::get('/excercises/{excercise}', [ExcerciseController::class, 'show'])->withoutMiddleware('is_admin');
+
+Route::resource('/user', UserController::class)->middleware(['auth', 'verified'])->only(
+    'show', 'edit', 'update', 'delete'
+);
 
 require __DIR__.'/auth.php';
