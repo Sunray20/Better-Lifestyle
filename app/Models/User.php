@@ -47,4 +47,14 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function excerciseHistories()
+    {
+        return $this->hasMany(ExcerciseHistory::class);
+    }
+
+    public function workoutRoutines()
+    {
+        return $this->hasMany(WorkoutRoutine::class);
+    }
 }
