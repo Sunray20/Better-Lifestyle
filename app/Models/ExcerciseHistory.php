@@ -9,6 +9,10 @@ class ExcerciseHistory extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'target_amount', 'achieved_amount', 'target_weight', 'achieved_weight'
+    ];
+
     public function excercise()
     {
         return $this->belongsTo(Excercise::class);

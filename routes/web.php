@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcerciseController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExcerciseHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,7 @@ Route::get('/excercises/{excercise}', [ExcerciseController::class, 'show'])->wit
 Route::resource('/user', UserController::class)->middleware(['auth', 'verified'])->only(
     'show', 'edit', 'update', 'delete'
 );
+
+Route::resource('/excercise-history', ExcerciseHistoryController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
