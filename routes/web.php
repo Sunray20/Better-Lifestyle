@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcerciseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExcerciseHistoryController;
+use App\Http\Controllers\WorkoutRoutineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +34,10 @@ Route::resource('/user', UserController::class)->middleware(['auth', 'verified']
 );
 
 Route::resource('/excercise-history', ExcerciseHistoryController::class)->middleware(['auth', 'verified']);
+//Maybe this should get another controller?
+Route::get('/my-routine', [ExcerciseHistoryController::class, 'myRoutine'])->middleware(['auth', 'verified']);
+
+Route::resource('/workout-routines', WorkoutRoutineController::class)->middleware(['auth', 'verified']);
+
 
 require __DIR__.'/auth.php';

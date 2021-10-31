@@ -13,7 +13,8 @@
                 </div>
                 <a href="/excercises">Excercises</a>
                 <a href="/excercise-history">Excercise History</a>
-                <a href="/user/{{ auth()->user()->id }}">User Datas</a>
+                <a href="/workout-routines">Workout Routines</a>
+                <a href="/user/{{ auth()->user()->id }}">User Data</a>
             </div>
         </div>
     </div>

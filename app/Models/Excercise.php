@@ -18,6 +18,6 @@ class Excercise extends Model
 
     public function workoutRoutines()
     {
-        return $this->hasMany(WorkoutRoutine::class);
+        return $this->belongsToMany(WorkoutRoutine::class, 'excercise_workout_routine');
     }
 }

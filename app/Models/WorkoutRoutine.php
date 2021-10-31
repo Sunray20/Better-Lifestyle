@@ -9,13 +9,12 @@ class WorkoutRoutine extends Model
 {
     use HasFactory;
 
-    public function excercise()
-    {
-        return $this->belongsTo(Excercise::class);
-    }
+    protected $fillable = [
+        'name', 'description'
+    ];
 
-    public function user()
+    public function excercises()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(Excercise::class, 'excercise_workout_routine');
     }
 }

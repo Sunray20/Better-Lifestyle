@@ -33,10 +33,10 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    // TODO: add is_admin
     protected $hidden = [
         'password',
         'remember_token',
+        'is_admin'
     ];
 
     /**
@@ -51,10 +51,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function excerciseHistories()
     {
         return $this->hasMany(ExcerciseHistory::class);
-    }
-
-    public function workoutRoutines()
-    {
-        return $this->hasMany(WorkoutRoutine::class);
     }
 }

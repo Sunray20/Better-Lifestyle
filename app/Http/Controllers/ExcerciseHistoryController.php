@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class ExcerciseHistoryController extends Controller
 {
+    public function myRoutine()
+    {
+        $myRoutine = ExcerciseHistory::where('user_id', auth()->user()->id)
+                                    ->where('date', date('Y-m-d'))
+                                    ->get();
+        return view('excercise-history.my-routine', ['myRoutine' => $myRoutine]);
+    }
+
     /**
      * Display a listing of the resource.
      *
