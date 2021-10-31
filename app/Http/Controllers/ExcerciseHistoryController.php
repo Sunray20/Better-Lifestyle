@@ -9,10 +9,13 @@ class ExcerciseHistoryController extends Controller
 {
     public function myRoutine()
     {
+        $monday = date( 'Y-m-d', strtotime( 'monday this week' ) );
+        $sunday = date( 'Y-m-d', strtotime( 'sunday this week' ) );
+
         $myRoutine = ExcerciseHistory::where('user_id', auth()->user()->id)
-                                    ->where('date', date('Y-m-d'))
+                                    ->whereBetween('date', [$monday, $sunday])
                                     ->get();
-        return view('excercise-history.my-routine', ['myRoutine' => $myRoutine]);
+        return view('excercise-history.my-routine', ['myRoutine' => $myRoutine, 'monday' => $monday]);
     }
 
     /**

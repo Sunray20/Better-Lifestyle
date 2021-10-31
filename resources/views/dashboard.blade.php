@@ -11,10 +11,11 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     You're logged in!
                 </div>
-                <a href="/excercises">Excercises</a>
-                <a href="/excercise-history">Excercise History</a>
-                <a href="/workout-routines">Workout Routines</a>
-                <a href="/user/{{ auth()->user()->id }}">User Data</a>
+                <a href="/excercises">Excercises</a> |
+                <a href="/excercise-history">Excercise History</a> |
+                <a href="/workout-routines">Workout Routines</a> |
+                <a href="/my-routine">My Routine</a> |
+                <a href="/user/{{ auth()->user()->id }}">User Data</a> |
             </div>
         </div>
     </div>

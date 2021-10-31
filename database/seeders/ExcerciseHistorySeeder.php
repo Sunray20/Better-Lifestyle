@@ -21,7 +21,7 @@ class ExcerciseHistorySeeder extends Seeder
             'achieved_amount' => 11,
             'target_weight' => 5,
             'achieved_weight' => 5,
-            'date' => '2021-10-23'
+            'date' => date('Y-m-d')
         ]);
     }
 }

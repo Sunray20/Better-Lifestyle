@@ -18,9 +18,9 @@ class CreateExcerciseHistoriesTable extends Migration
             $table->foreignId('excercise_id')->constrained('excercises');
             $table->foreignId('user_id')->constrained('users');
             $table->unsignedInteger('target_amount');
-            $table->unsignedInteger('achieved_amount');
+            $table->unsignedInteger('achieved_amount')->default(0);
             $table->unsignedInteger('target_weight');
-            $table->unsignedInteger('achieved_weight');
+            $table->unsignedInteger('achieved_weight')->default(0);
             $table->date('date');
             $table->timestamps();
         });
