@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ExcerciseHistorySeeder::class,
             WorkoutRoutineSeeder::class,
             ExcerciseWorkoutRoutineSeeder::class,
+            IngredientSeeder::class,
         ]);
     }
 }

@@ -34,6 +34,9 @@
                         <a class="nav-link" href="/my-routine">My Routine</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/ingredients">Ingredients</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/user/{{ auth()->user()->id }}">User Data</a>
                     </li>
                     <form method="POST" action="{{ route('logout') }}" class="mb-0">
