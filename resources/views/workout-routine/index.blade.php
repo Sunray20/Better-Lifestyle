@@ -1,3 +1,4 @@
+<x-bootstrap-layout/>
 @foreach ($workoutRoutines as $workoutRoutine)
     Routine name: {{ $workoutRoutine->name }} <br/>
     Description: {{ $workoutRoutine->description }}

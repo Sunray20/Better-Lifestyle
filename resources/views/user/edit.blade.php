@@ -1,3 +1,4 @@
+<x-bootstrap-layout/>
 <form action="/user/{{ $user->id }}" method="POST">
     @csrf
     @method('PUT')
@@ -23,6 +24,6 @@
         <p>Target Calories: {{ $user->target_kcal }}</p>
     </div>
     <div>
-        <input type="submit" value="submit">
+        <input type="submit" value="submit" class="btn btn-primary">
     </div>
 </form>

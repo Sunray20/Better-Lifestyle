@@ -1,3 +1,4 @@
+<x-bootstrap-layout/>
 @for ($i = 0; $i < 7; $i++)
 <div style="display: inline-block; width: 14%">
     @foreach ($myRoutine as $routine)
@@ -9,11 +10,11 @@
             <div>Achieved weight: {{ $routine->achieved_weight }}</div>
             <div>Date: {{ $routine->date }}</div>
 
-            <a href="excercise-history/{{ $routine->id }}/edit">Edit entry</a>
+            <a href="excercise-history/{{ $routine->id }}/edit" class="btn btn-primary">Edit entry</a>
             <form action="excercise-history/{{ $routine->id }}" method="POST">
                 @csrf
                 @method('delete')
-                <button type="submit">Delete entry</button>
+                <button type="submit" class="btn btn-danger">Delete entry</button>
             </form>
             <hr>
         @endif

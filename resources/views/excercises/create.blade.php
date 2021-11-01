@@ -1,5 +1,4 @@
-asd
-
+<x-bootstrap-layout/>
 <form action="/excercises" method="POST">
     @csrf
     <div>
@@ -21,6 +20,6 @@ asd
         <input type="text" name="description" placeholder="Description...">
     </div>
     <div>
-        <input type="submit" value="submit">
+        <input type="submit" value="submit" class="btn btn-primary">
     </div>
 </form>

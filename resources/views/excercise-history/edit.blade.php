@@ -1,3 +1,4 @@
+<x-bootstrap-layout/>
 <form action="/excercise-history/{{ $excerciseHistory->id }}" method="POST">
     @csrf
     @method('PUT')
@@ -19,6 +20,6 @@
     </div>
 
     <div>
-        <input type="submit" value="submit">
+        <input type="submit" value="submit" class="btn btn-primary">
     </div>
 </form>

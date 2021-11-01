@@ -1,3 +1,4 @@
+<x-bootstrap-layout/>
 <form action="/excercises/{{ $excercise->id }}" method="POST">
     @csrf
     @method('PUT')
@@ -20,6 +21,6 @@
         <input type="text" name="description" value="{{ $excercise->description }}">
     </div>
     <div>
-        <input type="submit" value="submit">
+        <input type="submit" value="submit" class="btn btn-primary">
     </div>
 </form>
