@@ -15,11 +15,12 @@ class CreateFoodsTable extends Migration
     {
         Schema::create('foods', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
+            $table->foreignId('user_id')->constrained('users')->default(1);
+            $table->string('name', 80);
             $table->longText('preparation_desc');
             $table->unsignedInteger('preparation_time');
             $table->unsignedInteger('preparation_difficulty');
-            $table->string('image_path', 120);
+            $table->string('image_path', 120)->nullable();
             $table->timestamps();
         });
     }

@@ -9,6 +9,13 @@ class Food extends Model
 {
     use HasFactory;
 
+    // TODO: check why it's required
+    protected $table = 'foods';
+
+    protected $fillable = [
+        'name', 'preparation_desc', 'preparation_time', 'preparation_difficulty', 'image_path'
+    ];
+
     public function diets()
     {
         return $this->belongsToMany(Diet::class, 'diet_food');
@@ -16,7 +23,7 @@ class Food extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredient::class, 'food_ingredients');
+        return $this->belongsToMany(Ingredient::class, 'food_ingredient');
     }
 
     public function incompatibleDiets()

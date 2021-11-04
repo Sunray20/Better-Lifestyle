@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExcerciseHistoryController;
 use App\Http\Controllers\WorkoutRoutineController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\FoodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ Route::resource('/workout-routines', WorkoutRoutineController::class)->middlewar
 
 Route::resource('/ingredients', IngredientController::class)->middleware(['auth', 'verified']);
 
-
+Route::resource('/foods', FoodController::class)->middleware(['auth', 'verified']);
 
 
 require __DIR__.'/auth.php';

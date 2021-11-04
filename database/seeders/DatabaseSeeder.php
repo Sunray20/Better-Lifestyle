@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             WorkoutRoutineSeeder::class,
             ExcerciseWorkoutRoutineSeeder::class,
             IngredientSeeder::class,
+            FoodSeeder::class,
+            FoodIngredientSeeder::class
         ]);
     }
 }
