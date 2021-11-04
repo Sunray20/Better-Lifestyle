@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDietTypesTable extends Migration
+class CreateDietTypeUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateDietTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('diet_types', function (Blueprint $table) {
+        Schema::create('diet_type_user', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->longText('description');
+            $table->foreignId('diet_type_id')->constrained('diet_types');
+            $table->foreignId('user_id')->constrained('users');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateDietTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diet_types');
+        Schema::dropIfExists('diet_type_user');
     }
 }

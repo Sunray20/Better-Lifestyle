@@ -52,4 +52,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(ExcerciseHistory::class);
     }
+
+    public function dietTypes()
+    {
+        return $this->belongsToMany(DietType::class, 'diet_type_user');
+    }
 }

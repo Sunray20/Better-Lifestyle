@@ -9,13 +9,17 @@ class DietType extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'description'
+    ];
+
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'diet_type_user');
     }
 
     public function incompatibleFoods()
     {
-        return $this->belongsToMany(IncompatibleFood::class, 'incompatible_food');
+        return $this->belongsToMany(Food::class, 'incompatible_food');
     }
 }

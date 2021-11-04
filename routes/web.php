@@ -7,6 +7,7 @@ use App\Http\Controllers\ExcerciseHistoryController;
 use App\Http\Controllers\WorkoutRoutineController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\DietTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,5 +46,8 @@ Route::resource('/ingredients', IngredientController::class)->middleware(['auth'
 
 Route::resource('/foods', FoodController::class)->middleware(['auth', 'verified']);
 
+Route::resource('/diet-types', DietTypeController::class)->middleware(['auth', 'verified', 'is_admin']);
+Route::get('/diet-types', [DietTypeController::class, 'index'])->withoutMiddleware('is_admin');
+Route::get('/diet-types/{diet_type}', [DietTypeController::class, 'show'])->withoutMiddleware('is_admin');
 
 require __DIR__.'/auth.php';

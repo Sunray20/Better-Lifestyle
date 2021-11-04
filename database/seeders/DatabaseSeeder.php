@@ -20,7 +20,10 @@ class DatabaseSeeder extends Seeder
             ExcerciseWorkoutRoutineSeeder::class,
             IngredientSeeder::class,
             FoodSeeder::class,
-            FoodIngredientSeeder::class
+            FoodIngredientSeeder::class,
+            DietTypeSeeder::class,
+            DietTypeUserSeeder::class,
+            IncompatibleFoodSeeder::class,
         ]);
     }
 }
