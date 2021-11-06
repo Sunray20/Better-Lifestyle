@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidateIngredientRequest;
 
 class IngredientController extends Controller
 {
@@ -44,10 +45,10 @@ class IngredientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidateIngredientRequest $request)
     {
         $ingredient = new Ingredient();
-        $ingredient->fill($request->all());
+        $ingredient->fill($request->validated());
 
         // Store image
         if(!empty($request->image))
@@ -56,6 +57,12 @@ class IngredientController extends Controller
             $request->image->move(public_path('images'), $imageName);
 
             $ingredient->image_path = $imageName;
+        }
+
+        // If admin adds the ingredient it is automatically considered valid
+        if(auth()->user()->is_admin == 1)
+        {
+            $ingredient->validated = true;
         }
 
         $ingredient->user_id = auth()->user()->id;
@@ -93,18 +100,32 @@ class IngredientController extends Controller
      * @param  \App\Models\Ingredient  $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ingredient $ingredient)
+    public function update(ValidateIngredientRequest $request, Ingredient $ingredient)
     {
-        $ingredient->fill($request->all());
+        $ingredient->fill($request->validated());
+        // TODO: If time permits check authorization gates and policies
 
         // Only store the image if a new one was added
         if(!empty($request->image))
         {
-            unlink(public_path() . '/images/' . $ingredient->image_path);
+            // If an old image exists then delete it
+            if($ingredient->image_path) {
+                unlink(public_path() . '/images/' . $ingredient->image_path);
+            }
+
             $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
 
             $ingredient->image_path = $imageName;
+        }
+
+        // If admin clicked validation checkbox
+        if (auth()->user()->is_admin) {
+            if ($request->input('validated') == true) {
+                $ingredient->validated = true;
+            } else {
+                $ingredient->validated = false;
+            }
         }
 
         $ingredient->save();
@@ -122,6 +143,10 @@ class IngredientController extends Controller
     {
         //If it's his or is_admin then let it be deleted
         if($ingredient->user_id == auth()->user()->id || auth()->user()->is_admin == 1) {
+            // If an image exists for resource then delete it
+            if($ingredient->image_path) {
+                unlink(public_path() . '/images/' . $ingredient->image_path);
+            }
             $ingredient->delete();
         }
 

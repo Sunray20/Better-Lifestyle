@@ -32,6 +32,12 @@
         <label for="name" class="form-label">Upload Image:</label>
         <input type="file" name="image" class="form-control"/>
     </div>
+    @if (auth()->user()->is_admin == 1)
+        <div>
+            <label for="validated" class="form-label">The data is valid?</label>
+            <input type="checkbox" name="validated" {{ ($ingredient->validated) ? 'checked' : '' }}>
+        </div>
+    @endif
 
     <input type="submit" value="Submit">
 </form>

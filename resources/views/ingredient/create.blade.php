@@ -1,4 +1,11 @@
 <x-bootstrap-layout/>
+
+@if ($errors)
+    @foreach ($errors->all() as $message)
+    {{ $message }}
+    @endforeach
+@endif
+
 <form action="/ingredients" method="POST" enctype="multipart/form-data">
     @csrf
     <div>

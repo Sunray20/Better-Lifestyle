@@ -24,6 +24,7 @@ class CreateIngredientsTable extends Migration
             $table->enum('unit', ['g', 'pound', 'dL', 'mL']);
             $table->double('amount', 8, 3);
             $table->string('image_path', 120)->nullable();
+            $table->boolean('validated')->default(false);
             $table->timestamps();
         });
     }

@@ -14,6 +14,9 @@
 
         <div><a href="/ingredients/{{ $ingredient->id }}">
             {{ $ingredient->name . ' (' . $ingredient->amount . ' ' . $ingredient->unit . ')'}}</a>
+            @if ($ingredient->validated)
+                ✓
+            @endif
         </div>
         <div>Calorie: {{ $ingredient->calorie }}</div>
         <div>Protein: {{ $ingredient->protein }}</div>

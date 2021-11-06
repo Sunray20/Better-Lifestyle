@@ -23,7 +23,8 @@ class IngredientSeeder extends Seeder
             'fat' => 0.2,
             'unit' => 'g',
             'amount' => 100,
-            'image_path' => time() . 'apple_stock.png',
+            'image_path' => 'apple_stock.png',
+            'validated' => true
         ]);
 
         DB::table('ingredients')->insert([
@@ -35,7 +36,8 @@ class IngredientSeeder extends Seeder
             'fat' => 0.4,
             'unit' => 'g',
             'amount' => 118,
-            'image_path' => time() . 'banana_stock.png',
+            'image_path' => 'banana_stock.png',
+            'validated' => true
         ]);
     }
 }
