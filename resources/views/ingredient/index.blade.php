@@ -7,7 +7,7 @@
 @isset($ingredients)
     @foreach ($ingredients as $ingredient)
         @isset($ingredient->image_path)
-            <img src="{{ asset('images/') . '/' . $ingredient->image_path }}" alt="Image of a food" width="100px" height="100px">
+            <img src="{{ asset('images/') . '/' . $ingredient->image_path }}" alt="Image of {{ $ingredient->name }}" width="100px" height="100px">
         @else
             <img src="{{ asset('images/missing_image.png') }}" alt="Missing food image" width="100px" height="100px">
         @endisset

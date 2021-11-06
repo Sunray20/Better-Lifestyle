@@ -20,7 +20,7 @@ class FoodSeeder extends Seeder
             'preparation_desc' => 'You should mix together the ingredients, and serve it cold.',
             'preparation_time' => 15,
             'preparation_difficulty' => 1,
-            'image_path' => 'fruit_salad_stock.png'
+            'image_path' => time() . 'fruit_salad_stock.png'
         ]);
     }
 }

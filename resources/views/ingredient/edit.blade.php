@@ -1,5 +1,5 @@
 <x-bootstrap-layout/>
-<form action="/ingredients/{{ $ingredient->id }}" method="POST">
+<form action="/ingredients/{{ $ingredient->id }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div>
@@ -30,7 +30,7 @@
     </div>
     <div>
         <label for="name" class="form-label">Upload Image:</label>
-        <input type="file" name="image_path" class="form-control"/>
+        <input type="file" name="image" class="form-control"/>
     </div>
 
     <input type="submit" value="Submit">

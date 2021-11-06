@@ -46,17 +46,17 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: fix image upload
         $ingredient = new Ingredient();
         $ingredient->fill($request->all());
+
         // Store image
-        /*if(!empty($request->input('image')))
+        if(!empty($request->image))
         {
-            $imageName = time().'.'.$request->image->extension();
+            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
 
             $ingredient->image_path = $imageName;
-        }*/
+        }
 
         $ingredient->user_id = auth()->user()->id;
         $ingredient->save();
@@ -97,13 +97,15 @@ class IngredientController extends Controller
     {
         $ingredient->fill($request->all());
 
-        // store the image
-        /*if(!empty($request->input('image_path')))
+        // Only store the image if a new one was added
+        if(!empty($request->image))
         {
-            $newImageName = time() . '-' . $request->name . $request->image->extension();
-            $request->image->move(public_path('images'), $newImageName);
-            $ingredient->image_path = $newImageName;
-        }*/
+            unlink(public_path() . '/images/' . $ingredient->image_path);
+            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+
+            $ingredient->image_path = $imageName;
+        }
 
         $ingredient->save();
 

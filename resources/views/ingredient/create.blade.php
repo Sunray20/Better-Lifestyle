@@ -1,5 +1,5 @@
 <x-bootstrap-layout/>
-<form action="/ingredients" method="POST">
+<form action="/ingredients" method="POST" enctype="multipart/form-data">
     @csrf
     <div>
         <input type="text" name="name" placeholder="Food name...">

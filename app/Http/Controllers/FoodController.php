@@ -47,17 +47,17 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: fix image upload
         $food = new Food();
         $food->fill($request->all());
+
         // Store image
-        /*if(!empty($request->input('image')))
+        if(!empty($request->image))
         {
-            $imageName = time().'.'.$request->image->extension();
+            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
 
-            $ingredient->image_path = $imageName;
-        }*/
+            $food->image_path = $imageName;
+        }
 
         $food->user_id = auth()->user()->id;
         $food->save();
@@ -98,13 +98,16 @@ class FoodController extends Controller
     {
         $food->fill($request->all());
 
-        // store the image
-        /*if(!empty($request->input('image_path')))
+        // Only store the image if a new one was added
+        if(!empty($request->image))
         {
-            $newImageName = time() . '-' . $request->name . $request->image->extension();
-            $request->image->move(public_path('images'), $newImageName);
-            $ingredient->image_path = $newImageName;
-        }*/
+            // Delete old image
+            unlink(public_path() . '/images/' . $food->image_path);
+            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+
+            $food->image_path = $imageName;
+        }
 
         $food->save();
 
