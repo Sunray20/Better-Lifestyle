@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExcerciseWorkoutRoutineTable extends Migration
+class CreateExcerciseTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateExcerciseWorkoutRoutineTable extends Migration
      */
     public function up()
     {
-        Schema::create('excercise_workout_routine', function (Blueprint $table) {
+        Schema::create('excercise_types', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('excercise_id')->constrained('excercises');
-            $table->foreignId('workout_routine_id')->constrained('workout_routines');
+            $table->string('name', 30);
         });
     }
 
@@ -27,6 +26,6 @@ class CreateExcerciseWorkoutRoutineTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('excercise_workout_routine');
+        Schema::dropIfExists('excercise_types');
     }
 }

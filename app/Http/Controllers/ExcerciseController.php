@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Excercise;
+use App\Models\ExcerciseType;
+use App\Models\ExcerciseExcerciseType;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidateExcerciseRequest;
 
 class ExcerciseController extends Controller
 {
@@ -14,8 +17,21 @@ class ExcerciseController extends Controller
      */
     public function index()
     {
-        $excercises = Excercise::all();
-        return view('excercises.index', ['excercises' => $excercises]);
+        $excerciseTypes = ExcerciseType::all();
+        return view('excercises.index', ['excerciseTypes' => $excerciseTypes]);
+    }
+
+    public function getExcercisesByType($excerciseType)
+    {
+        $type = ExcerciseType::where('name', $excerciseType)->first();
+        if(!empty($type))
+        {
+            $excercises = $type->excercises;
+            return view('excercises.excercises', ['excercises' => $excercises]);
+        }
+
+        // TODO: Add custom 404 page with navbar
+        abort(404);
     }
 
     /**
@@ -34,13 +50,19 @@ class ExcerciseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidateExcerciseRequest $request)
     {
-        $excercise = Excercise::create([
-            'name' => $request->input('name'),
-            'type' => $request->input('type'),
-            'description' => $request->input('description')
-        ]);
+        $excercise = new Excercise();
+        $excercise->fill($request->validated());
+
+        // Store image
+        if(!empty($request->image))
+        {
+            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+
+            $excercise->image_path = $imageName;
+        }
 
         return redirect('/excercises');
     }
@@ -51,7 +73,7 @@ class ExcerciseController extends Controller
      * @param  \App\Models\Excercise  $excercise
      * @return \Illuminate\Http\Response
      */
-    public function show(Excercise $excercise)
+    public function show($excerciseType, Excercise $excercise)
     {
         return view('excercises.show', ['excercise' => $excercise]);
     }
@@ -64,7 +86,9 @@ class ExcerciseController extends Controller
      */
     public function edit(Excercise $excercise)
     {
-        return view('excercises.edit', ['excercise' => $excercise]);
+        $selectedExcerciseTypes = $excercise->excerciseTypes;
+        $unselectedExcerciseTypes = ExcerciseType::whereNotIn('name', $selectedExcerciseTypes)->get();
+        return view('excercises.edit', ['excercise' => $excercise, 'unselectedExcerciseTypes' => $unselectedExcerciseTypes]);
     }
 
     /**
@@ -74,13 +98,41 @@ class ExcerciseController extends Controller
      * @param  \App\Models\Excercise  $excercise
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Excercise $excercise)
+    public function update(ValidateExcerciseRequest $request, Excercise $excercise)
     {
-        $excercise->update([
-            'name' => $request->input('name'),
-            'type' => $request->input('type'),
-            'description' => $request->input('description')
-        ]);
+        $excercise->fill($request->validated());
+
+        $excerciseTypes = ExcerciseType::all();
+        $excerciseTypesNames = $excerciseTypes->pluck('name');
+        $excerciseTypesNames->all();
+
+        // TODO: allow deleting by unchecking a field
+        foreach($request->all() as $key => $item)
+        {
+            foreach($excerciseTypes as $excerciseType)
+            {
+                if($key == $excerciseType->name)
+                {
+                    ExcerciseExcerciseType::updateOrCreate(
+                        ['excercise_type_id' => $excerciseType->id, 'excercise_id' => $excercise->id],
+                    );
+                }
+            }
+        }
+
+        // Only store the image if a new one was added
+        if(!empty($request->image))
+        {
+            // If an old image exists then delete it
+            if($excercise->image_path) {
+                unlink(public_path() . '/images/' . $excercise->image_path);
+            }
+
+            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+
+            $excercise->image_path = $imageName;
+        }
 
         return redirect('/excercises');
     }

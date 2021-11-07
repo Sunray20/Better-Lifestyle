@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             ExcerciseHistorySeeder::class,
             WorkoutRoutineSeeder::class,
             ExcerciseWorkoutRoutineSeeder::class,
+            ExcerciseTypeSeeder::class,
+            ExcerciseExcerciseTypeSeeder::class,
             IngredientSeeder::class,
             FoodSeeder::class,
             FoodIngredientSeeder::class,

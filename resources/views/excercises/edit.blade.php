@@ -6,19 +6,27 @@
         <input type="text" name="name" value="{{ $excercise->name }}">
     </div>
     <div>
-        <select id="type" name="type">
-            <option value="Chest"       {{ $excercise->type == 'chest' ? 'selected' : '' }}>Chest</option>
-            <option value="Back"        {{ $excercise->type == 'back' ? 'selected' : '' }}>Back</option>
-            <option value="Legs"        {{ $excercise->type == 'legs' ? 'selected' : '' }}>Legs</option>
-            <option value="Biceps"      {{ $excercise->type == 'biceps' ? 'selected' : '' }}>Biceps</option>
-            <option value="Triceps"     {{ $excercise->type == 'triceps' ? 'selected' : '' }}>Triceps</option>
-            <option value="Forearms"    {{ $excercise->type == 'forearms' ? 'selected' : '' }}>Forearms</option>
-            <option value="Shoulders"   {{ $excercise->type == 'shoulders' ? 'selected' : '' }}>Shoulders</option>
-            <option value="Abdominals"  {{ $excercise->type == 'abdominals' ? 'selected' : '' }}>Abdominals</option>
-        </select>
+        @foreach ($excercise->excerciseTypes as $type)
+            <input type="checkbox" name="{{ $type->name }}" checked>
+            <label for="{{ $type->name }}">{{ $type->name }}</label>
+        @endforeach
+        @foreach ($unselectedExcerciseTypes as $type)
+            <input type="checkbox" name="{{ $type->name }}">
+            <label for="{{ $type->name }}">{{ $type->name }}</label>
+        @endforeach
     </div>
     <div>
-        <input type="text" name="description" value="{{ $excercise->description }}">
+        <textarea name="description" id="" cols="30" rows="10">
+            {{ $excercise->description }}
+        </textarea>
+    </div>
+    @isset($excercise->image_path)
+        <img src="{{ $excercise->image_path }}" alt="Image of {{ $excercise->name }}" width="200px" height="200px">
+    @endisset
+
+    <div>
+        <label for="name" class="form-label">Upload Image:</label>
+        <input type="file" name="image" class="form-control"/>
     </div>
     <div>
         <input type="submit" value="submit" class="btn btn-primary">

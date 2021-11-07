@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidateIngredientRequest extends FormRequest
+class ValidateExcerciseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,8 @@ class ValidateIngredientRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:80',
-            'calorie' => 'required|integer|between:0,9999',
-            'protein' => 'required|numeric|between:0,9999',
-            'carb' => 'required|numeric|between:0,9999',
-            'fat' => 'required|numeric|between:0,9999',
-            'unit' => 'required|in:g,pound,dL,mL',
-            'amount' => 'required|numeric|between:0,9999',
+            'name' => 'required|max:50',
+            'description' => 'required|string',
             'image_path' => 'nullable|mimes:jpg,png,jpeg|max:5048',
         ];
     }

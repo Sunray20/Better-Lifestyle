@@ -16,13 +16,11 @@ class ExcerciseSeeder extends Seeder
     {
         DB::table('excercises')->insert([
             'name' => 'Pull up',
-            'type' => 'chest',
             'description' => 'Very good excercise for training the chest'
         ]);
 
         DB::table('excercises')->insert([
             'name' => 'Push up',
-            'type' => 'triceps',
             'description' => 'Recommended for bodyweight training routines'
         ]);
     }

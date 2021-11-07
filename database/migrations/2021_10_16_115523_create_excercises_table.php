@@ -16,9 +16,8 @@ class CreateExcercisesTable extends Migration
         Schema::create('excercises', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->enum('type', ['chest', 'back', 'legs', 'biceps', 'triceps', 'forearms', 'shoulders', 'abdominals']);
             $table->longText('description');
-            $table->timestamps();
+            $table->string('image_path', 120);
         });
     }
 

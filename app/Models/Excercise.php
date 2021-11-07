@@ -9,11 +9,16 @@ class Excercise extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'type', 'description'];
+    protected $fillable = ['name', 'type', 'description', 'image_path'];
 
     public function excerciseHistories()
     {
         return $this->hasMany(ExcerciseHistory::class);
+    }
+
+    public function excerciseTypes()
+    {
+        return $this->belongsToMany(ExcerciseType::class, 'excercise_excercise_type');
     }
 
     public function workoutRoutines()

@@ -19,7 +19,6 @@ use App\Http\Controllers\DietTypeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -30,7 +29,8 @@ Route::get('/dashboard', function () {
 
 Route::resource('/excercises', ExcerciseController::class)->middleware(['auth', 'verified', 'is_admin']);
 Route::get('/excercises', [ExcerciseController::class, 'index'])->withoutMiddleware('is_admin');
-Route::get('/excercises/{excercise}', [ExcerciseController::class, 'show'])->withoutMiddleware('is_admin');
+Route::get('/excercises/{excercise}', [ExcerciseController::class, 'getExcercisesByType'])->withoutMiddleware('is_admin')->name('excerciseType');
+Route::get('/excercises/{excercise_type}/{excercise}', [ExcerciseController::class, 'show'])->withoutMiddleware('is_admin');
 
 Route::resource('/user', UserController::class)->middleware(['auth', 'verified'])->only(
     'show', 'edit', 'update', 'delete'

@@ -104,6 +104,7 @@ class IngredientController extends Controller
     {
         $ingredient->fill($request->validated());
         // TODO: If time permits check authorization gates and policies
+        // TODO: Move image storing into seperate helper class
 
         // Only store the image if a new one was added
         if(!empty($request->image))

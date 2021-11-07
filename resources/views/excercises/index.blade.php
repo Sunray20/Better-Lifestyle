@@ -1,14 +1,11 @@
 <x-bootstrap-layout/>
-<a href="excercises/create" class="btn btn-success">Add new excercise</a>
 
-@foreach ($excercises as $excercise)
-    <div><a href="excercises/{{ $excercise->id }}">{{ $excercise->name }}</a></div>
-    <div>{{ $excercise->type }}</div>
-    <a href="excercises/{{ $excercise->id }}/edit" class="btn btn-primary">Edit excercise</a>
-    <form action="excercises/{{ $excercise->id }}" method="POST">
-        @csrf
-        @method('delete')
-        <button type="submit" class="btn btn-danger">Delete</button>
-    </form>
-    <hr/>
+@foreach ($excerciseTypes as $excerciseType)
+    <div class="card" style="width: 18rem;">
+        {{-- TODO: add static images for the types --}}
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title"><a href="/excercises/{{ $excerciseType->name }}/">{{ $excerciseType->name }}</a></h5>
+        </div>
+    </div>
 @endforeach
