@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ExcerciseHistory;
+use App\Models\Excercise;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidateExcerciseHistoryRequest;
 
 class ExcerciseHistoryController extends Controller
 {
@@ -15,7 +17,40 @@ class ExcerciseHistoryController extends Controller
         $myRoutine = ExcerciseHistory::where('user_id', auth()->user()->id)
                                     ->whereBetween('date', [$monday, $sunday])
                                     ->get();
-        return view('excercise-history.my-routine', ['myRoutine' => $myRoutine, 'monday' => $monday]);
+
+        // Get all excercises
+        $excercises = Excercise::all();
+
+        $data = array();
+        $j = 0;
+        $maxCount = 0;
+
+        for($i = 0; $i < 7; $i++)
+        {
+            $dateForIteration = date('Y-m-d', strtotime($monday . ' +' . $i .' days'));
+            foreach($myRoutine as $item)
+            {
+                if($dateForIteration == $item->date)
+                {
+                    $data[$dateForIteration][$j] = array();
+                    array_push($data[$dateForIteration][$j], $item);
+                    $j++;
+
+                    if($maxCount < $j) {
+                        $maxCount = $j;
+                    }
+                }
+            }
+            $j = 0;
+        }
+
+
+
+        return view('excercise-history.my-routine',
+                ['monday' => $monday,
+                 'data' => $data,
+                 'maxCount' => $maxCount,
+                 'excercises' => $excercises]);
     }
 
     /**
@@ -31,35 +66,19 @@ class ExcerciseHistoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidateExcerciseHistoryRequest $request)
     {
-        //
-    }
+        $excerciseHistory = new ExcerciseHistory();
+        $excerciseHistory->fill($request->validated());
+        $excerciseHistory->user_id = auth()->user()->id;
+        $excerciseHistory->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ExcerciseHistory  $excerciseHistory
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ExcerciseHistory $excerciseHistory)
-    {
-        //
+        return redirect('/my-routine');
     }
 
     /**
@@ -89,7 +108,7 @@ class ExcerciseHistoryController extends Controller
             'achieved_weight' => $request->input('achieved_weight')
         ]);
 
-        return redirect('/excercise-history');
+        return redirect('/my-routine');
     }
 
     /**
@@ -102,6 +121,6 @@ class ExcerciseHistoryController extends Controller
     {
         $excerciseHistory->delete();
 
-        return redirect('/excercise-history');
+        return redirect('/my-routine');
     }
 }

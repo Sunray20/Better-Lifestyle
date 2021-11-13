@@ -10,7 +10,7 @@ class ExcerciseHistory extends Model
     use HasFactory;
 
     protected $fillable = [
-        'target_amount', 'achieved_amount', 'target_weight', 'achieved_weight'
+        'excercise_id', 'target_amount', 'achieved_amount', 'target_weight', 'achieved_weight', 'date'
     ];
 
     public function excercise()

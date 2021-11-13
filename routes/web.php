@@ -36,7 +36,8 @@ Route::resource('/user', UserController::class)->middleware(['auth', 'verified']
     'show', 'edit', 'update', 'delete'
 );
 
-Route::resource('/excercise-history', ExcerciseHistoryController::class)->middleware(['auth', 'verified']);
+Route::resource('/excercise-history', ExcerciseHistoryController::class)
+       ->except(['create, show'])->middleware(['auth', 'verified']);
 //Maybe this should get another controller?
 Route::get('/my-routine', [ExcerciseHistoryController::class, 'myRoutine'])->middleware(['auth', 'verified']);
 
