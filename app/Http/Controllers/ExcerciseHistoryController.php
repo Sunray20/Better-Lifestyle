@@ -99,14 +99,10 @@ class ExcerciseHistoryController extends Controller
      * @param  \App\Models\ExcerciseHistory  $excerciseHistory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ExcerciseHistory $excerciseHistory)
+    public function update(ValidateExcerciseHistoryRequest $request, ExcerciseHistory $excerciseHistory)
     {
-        $excerciseHistory->update([
-            'target_amount' => $request->input('target_amount'),
-            'achieved_amount' => $request->input('achieved_amount'),
-            'target_weight' => $request->input('target_weight'),
-            'achieved_weight' => $request->input('achieved_weight')
-        ]);
+        $excerciseHistory->fill($request->validated());
+        $excerciseHistory->save();
 
         return redirect('/my-routine');
     }

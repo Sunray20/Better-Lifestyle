@@ -11,6 +11,8 @@ class Excercise extends Model
 
     protected $fillable = ['name', 'type', 'description', 'image_path'];
 
+    public $timestamps = false;
+
     public function excerciseHistories()
     {
         return $this->hasMany(ExcerciseHistory::class);

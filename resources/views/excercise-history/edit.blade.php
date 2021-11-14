@@ -22,4 +22,5 @@
     <div>
         <input type="submit" value="submit" class="btn btn-primary">
     </div>
+    <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
 </form>

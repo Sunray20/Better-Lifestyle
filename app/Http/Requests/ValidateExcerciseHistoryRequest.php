@@ -23,14 +23,14 @@ class ValidateExcerciseHistoryRequest extends FormRequest
      */
     public function rules()
     {
-        // TODO: validate the Date field too
         return [
-            'excercise_id' => 'required',
+            'excercise_id' => 'sometimes|required',
             'target_amount' => 'required|min:1|max:200',
             'achieved_amount' => 'min:0|max:200',
             'target_weight' => 'required|min:1|max:200',
             'achieved_weight' => 'min:0|max:200',
-            'date' => 'required'
-        ];
+            'date' => 'sometimes|required|date|after_or_equal:monday this week|before_or_equal:sunday this week'
+        ];;
     }
+
 }

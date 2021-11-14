@@ -15,7 +15,7 @@ class CreateExcerciseExcerciseTypeTable extends Migration
     {
         Schema::create('excercise_excercise_type', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('excercise_id')->constrained('excercises');
+            $table->foreignId('excercise_id')->constrained('excercises')->onDelete('cascade');
             $table->foreignId('excercise_type_id')->constrained('excercise_types');
         });
     }

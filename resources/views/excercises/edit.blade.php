@@ -1,5 +1,5 @@
 <x-bootstrap-layout/>
-<form action="/excercises/{{ $excercise->id }}" method="POST">
+<form action="/excercises/{{ $excercise->id }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div>
@@ -21,7 +21,13 @@
         </textarea>
     </div>
     @isset($excercise->image_path)
-        <img src="{{ $excercise->image_path }}" alt="Image of {{ $excercise->name }}" width="200px" height="200px">
+        <img src="{{ asset('images/excercises/') . '/' . $excercise->image_path }}"
+                class="card-img-top"
+                alt="Image of {{ $excercise->name }}"
+                width="640px"
+                height="640px">
+    @else
+        <img src="{{ asset('images/missing_image.png') }}" alt="Missing image" width="640px" height="640px">
     @endisset
 
     <div>
@@ -31,4 +37,6 @@
     <div>
         <input type="submit" value="submit" class="btn btn-primary">
     </div>
+
+    <a href="{{ url()->previous() }}">Return</a>
 </form>

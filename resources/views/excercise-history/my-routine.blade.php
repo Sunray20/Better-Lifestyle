@@ -1,16 +1,14 @@
 <x-bootstrap-layout/>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
     Add new excercise
 </button>
 
-<!-- TODO: Finish up modal logic -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="createModalLabel">Add new entry to routine</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/excercise-history" method="POST">
@@ -49,7 +47,9 @@
         </div>
     </div>
 </div>
-
+@foreach ($errors->all() as $message)
+    {{ $message }}
+@endforeach
 <div class="table-responsive">
     <table class="table">
         <thead>

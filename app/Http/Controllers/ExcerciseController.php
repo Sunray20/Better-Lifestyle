@@ -27,7 +27,8 @@ class ExcerciseController extends Controller
         if(!empty($type))
         {
             $excercises = $type->excercises;
-            return view('excercises.excercises', ['excercises' => $excercises]);
+            return view('excercises.excercises',
+                     ['excercises' => $excercises, 'excerciseType' => $type]);
         }
 
         // TODO: Add custom 404 page with navbar
@@ -41,7 +42,8 @@ class ExcerciseController extends Controller
      */
     public function create()
     {
-        return view('excercises.create');
+        $allExcerciseTypes = ExcerciseType::all();
+        return view('excercises.create', ['allExcerciseTypes' => $allExcerciseTypes]);
     }
 
     /**
@@ -59,9 +61,29 @@ class ExcerciseController extends Controller
         if(!empty($request->image))
         {
             $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
+            $request->image->move(public_path('images/excercises'), $imageName);
 
             $excercise->image_path = $imageName;
+        }
+
+        $excercise->save();
+
+        // Get all excerciseType names
+        $excerciseTypes = ExcerciseType::all();
+        $excerciseTypesNames = $excerciseTypes->pluck('name');
+        $excerciseTypesNames->all();
+
+        foreach($request->all() as $key => $item)
+        {
+            foreach($excerciseTypes as $excerciseType)
+            {
+                if($key == $excerciseType->name)
+                {
+                    ExcerciseExcerciseType::updateOrCreate(
+                        ['excercise_type_id' => $excerciseType->id, 'excercise_id' => $excercise->id],
+                    );
+                }
+            }
         }
 
         return redirect('/excercises');
@@ -75,7 +97,7 @@ class ExcerciseController extends Controller
      */
     public function show($excerciseType, Excercise $excercise)
     {
-        return view('excercises.show', ['excercise' => $excercise]);
+        return view('excercises.show', ['excercise' => $excercise, 'excerciseType' => $excerciseType]);
     }
 
     /**
@@ -87,7 +109,8 @@ class ExcerciseController extends Controller
     public function edit(Excercise $excercise)
     {
         $selectedExcerciseTypes = $excercise->excerciseTypes;
-        $unselectedExcerciseTypes = ExcerciseType::whereNotIn('name', $selectedExcerciseTypes)->get();
+        $unselectedExcerciseTypes = ExcerciseType::all();
+        $unselectedExcerciseTypes = $unselectedExcerciseTypes->diff($selectedExcerciseTypes);
         return view('excercises.edit', ['excercise' => $excercise, 'unselectedExcerciseTypes' => $unselectedExcerciseTypes]);
     }
 
@@ -106,17 +129,32 @@ class ExcerciseController extends Controller
         $excerciseTypesNames = $excerciseTypes->pluck('name');
         $excerciseTypesNames->all();
 
-        // TODO: allow deleting by unchecking a field
+        // Iterate through every input field
         foreach($request->all() as $key => $item)
         {
             foreach($excerciseTypes as $excerciseType)
             {
+                // If the field's name is equal to the excerciseType->name
                 if($key == $excerciseType->name)
                 {
-                    ExcerciseExcerciseType::updateOrCreate(
-                        ['excercise_type_id' => $excerciseType->id, 'excercise_id' => $excercise->id],
-                    );
+                    // And if the checkbox was checked then insert new
+                    // excercise <-> excerciseType connection
+                    if($request->input($key) == true) {
+                        ExcerciseExcerciseType::updateOrCreate(
+                            ['excercise_type_id' => $excerciseType->id, 'excercise_id' => $excercise->id],
+                        );
+                    }
                 }
+            }
+        }
+
+        // If an excercise field left unchecked then delete it from pivot table
+        foreach($excerciseTypes as $excerciseType)
+        {
+            if($request->input($excerciseType->name) == null)
+            {
+                ExcerciseExcerciseType::where([['excercise_type_id', '=', $excerciseType->id],
+                                              ['excercise_id', '=', $excercise->id]])->delete();
             }
         }
 
@@ -125,14 +163,16 @@ class ExcerciseController extends Controller
         {
             // If an old image exists then delete it
             if($excercise->image_path) {
-                unlink(public_path() . '/images/' . $excercise->image_path);
+                unlink(public_path() . '/images/excercises/' . $excercise->image_path);
             }
 
             $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
+            $request->image->move(public_path('images/excercises'), $imageName);
 
             $excercise->image_path = $imageName;
         }
+
+        $excercise->save();
 
         return redirect('/excercises');
     }

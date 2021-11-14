@@ -15,3 +15,10 @@
     </form>
     <hr>
 @endforeach
+
+@if($excerciseHistories->isEmpty())
+    <p>
+        It seems like there is no excercise history added just yet!
+        Go to <a href="/my-routine">My routine</a> page to start planning your workout routine.
+    </p>
+@endif

@@ -17,7 +17,7 @@ class CreateExcercisesTable extends Migration
             $table->id();
             $table->string('name', 50);
             $table->longText('description');
-            $table->string('image_path', 120);
+            $table->string('image_path', 120)->nullable();
         });
     }
 
