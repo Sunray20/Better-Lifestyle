@@ -1,18 +1,31 @@
 <x-bootstrap-layout/>
 <div>
-    <p>{{ $user->weight }} {{ $user->unit }}</p>
+    <p>Sex: {{ $user->sex ? 'Female' : 'Male'}}</p>
 </div>
 <div>
-    <p>{{ $user->target_weight }} {{ $user->unit }}</p>
+    <p>Height: {{ $user->height }} {{ $user->height_unit }}</p>
 </div>
+<div>
+    <p>Current weight: {{ $user->weight }} {{ $user->weight_unit }}</p>
+</div>
+<div>
+    <p>Target weight: {{ $user->target_weight }} {{ $user->weight_unit }}</p>
+</div>
+<div>
+    <p>Target Calories: {{ $user->target_kcal }} kcal</p>
+</div>
+<div>
+    Followed diets:
+    @if ($user->dietTypes->isEmpty())
+        <span>No diet is followed!</span>
+    @else
+        @foreach ($user->dietTypes as $type)
+            <span>{{ $type->name }},</span>
+        @endforeach
+    @endif
 
-<div>
-    <p>{{ $user->diet_goal }}</p>
 </div>
-<div>
-    <p>Target Calories: {{ $user->target_kcal }}</p>
-</div>
-<a href="/user/{{ $user->id }}/edit" class="btn btn-primary">Edit my goals</a>
+<a href="/user/{{ $user->id }}/edit" class="btn btn-primary">Edit my details</a>
 <form action="user/{{ $user->id }}" method="POST">
     @csrf
     @method('delete')

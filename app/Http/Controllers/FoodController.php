@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Food;
+use App\Http\Requests\ValidateFoodRequest;
 use Illuminate\Http\Request;
 
 class FoodController extends Controller
@@ -45,15 +46,15 @@ class FoodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidateFoodRequest $request)
     {
         $food = new Food();
-        $food->fill($request->all());
+        $food->fill($request->validated());
 
         // Store image
         if(!empty($request->image))
         {
-            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
+            $imageName = time(). '-' . $request->validated('name')['name'] . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
 
             $food->image_path = $imageName;
@@ -94,16 +95,18 @@ class FoodController extends Controller
      * @param  \App\Models\Food  $food
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Food $food)
+    public function update(ValidateFoodRequest $request, Food $food)
     {
-        $food->fill($request->all());
+        $food->fill($request->validated());
 
         // Only store the image if a new one was added
         if(!empty($request->image))
         {
-            // Delete old image
-            unlink(public_path() . '/images/' . $food->image_path);
-            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
+            // If an old image exists then delete it
+            if($ingredient->image_path) {
+                unlink(public_path() . '/images/' . $food->image_path);
+            }
+            $imageName = time(). '-' . $request->validated('name')['name'] . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
 
             $food->image_path = $imageName;

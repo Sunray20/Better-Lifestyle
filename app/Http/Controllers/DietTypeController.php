@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DietType;
+use App\Http\Requests\ValidateDietTypeRequest;
 use Illuminate\Http\Request;
 
 class DietTypeController extends Controller
@@ -34,11 +35,13 @@ class DietTypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidateDietTypeRequest $request)
     {
+        // TODO: add possible diet types to user settings screen, basic user can only view and checkbox them
+        // TODO: Create incompatible food logic
         if(auth()->user()->is_admin == 1) {
             $dietType = new DietType();
-            $dietType->fill($request->all());
+            $dietType->fill($request->validated());
             $dietType->save();
         }
 
@@ -74,10 +77,10 @@ class DietTypeController extends Controller
      * @param  \App\Models\DietType  $dietType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DietType $dietType)
+    public function update(ValidateDietTypeRequest $request, DietType $dietType)
     {
         if(auth()->user()->is_admin == 1) {
-            $dietType->fill($request->all());
+            $dietType->fill($request->validated());
             $dietType->save();
         }
 

@@ -2,31 +2,38 @@
 
 @if ($errors)
     @foreach ($errors->all() as $message)
-    {{ $message }}
+        {{ $message }}
     @endforeach
 @endif
 
 <form action="/ingredients" method="POST" enctype="multipart/form-data">
     @csrf
     <div>
-        <input type="text" name="name" placeholder="Food name...">
+        <label for="name">Name of the ingredient: </label>
+        <input type="text" name="name" placeholder="Ingredient name...">
     </div>
     <div>
+        <label for="calorie">Calorie amount: </label>
         <input type="text" name="calorie" placeholder="Calories...">
     </div>
     <div>
+        <label for="protein">Protein amount: </label>
         <input type="text" name="protein" placeholder="Protein...">
     </div>
     <div>
+        <label for="carb">Carb amount: </label>
         <input type="text" name="carb" placeholder="Carbs...">
     </div>
     <div>
+        <label for="fat">Fat amount: </label>
         <input type="text" name="fat" placeholder="Fats...">
     </div>
     <div>
+        <label for="amount">Ingredient amount: </label>
         <input type="text" name="amount" placeholder="Amount...">
     </div>
     <div>
+        <label for="unit">Unit: </label>
         <select id="unit" name="unit">
             <option value="g" selected>g</option>
             <option value="pound">pound</option>
@@ -35,9 +42,11 @@
         </select>
     </div>
     <div>
-        <label for="name" class="form-label">Upload Image:</label>
+        <label for="image" class="form-label">Upload Image:</label>
         <input type="file" name="image" class="form-control"/>
     </div>
 
     <input type="submit" value="Submit">
+
 </form>
+<a href="{{ url()->previous() }}">Return</a>

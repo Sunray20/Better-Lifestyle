@@ -60,7 +60,7 @@ class ExcerciseController extends Controller
         // Store image
         if(!empty($request->image))
         {
-            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
+            $imageName = time(). '-' . $request->validated('name')['name'] . '.' . $request->image->extension();
             $request->image->move(public_path('images/excercises'), $imageName);
 
             $excercise->image_path = $imageName;
@@ -162,7 +162,7 @@ class ExcerciseController extends Controller
                 unlink(public_path() . '/images/excercises/' . $excercise->image_path);
             }
 
-            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
+            $imageName = time(). '-' . $request->validated('name')['name'] . '.' . $request->image->extension();
             $request->image->move(public_path('images/excercises'), $imageName);
 
             $excercise->image_path = $imageName;

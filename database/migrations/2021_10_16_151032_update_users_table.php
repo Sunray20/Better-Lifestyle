@@ -14,11 +14,13 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_admin')->default(false);
-            $table->enum('unit', ['kg', 'pound'])->default('kg');
-            $table->double('weight', 4, 1)->default('70');
-            $table->double('target_weight', 4, 1)->default('75');
-            $table->enum('diet_goal', ['maintain', 'bulk', 'cut'])->default('maintain');
+            $table->boolean ('is_admin')->default(false);
+            $table->double  ('height', 4, 1)->default('170');
+            $table->enum    ('height_unit', ['cm', 'inch'])->default('cm');
+            $table->double  ('weight', 4, 1)->default('70');
+            $table->enum    ('weight_unit', ['kg', 'pound'])->default('kg');
+            $table->double  ('target_weight', 4, 1)->default('75');
+            $table->boolean ('sex')->default(0);
             $table->unsignedInteger('target_kcal')->default('2000');
         });
     }

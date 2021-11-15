@@ -15,7 +15,8 @@
         <div><a href="/ingredients/{{ $ingredient->id }}">
             {{ $ingredient->name . ' (' . $ingredient->amount . ' ' . $ingredient->unit . ')'}}</a>
             @if ($ingredient->validated)
-                ✓
+                {{-- TODO: add fontawesome icon for this --}}
+                <span title="This ingredient is validated">✓</span>
             @endif
         </div>
         <div>Calorie: {{ $ingredient->calorie }}</div>

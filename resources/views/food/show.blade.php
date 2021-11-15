@@ -5,16 +5,24 @@
     <img src="{{ asset('images/missing_image.png') }}" alt="Missing food image" width="100px" height="100px">
 @endisset
 <div>
-    {{ $food->name }}
+    <p>
+        Name of food: {{ $food->name }}
+    </p>
 </div>
 <div>
-    {{ $food->preparation_time }}
+    <p>
+        Preparation time: {{ $food->preparation_time }}
+    </p>
 </div>
 <div>
-    {{ $food->preparation_difficulty }}
+    <p>
+        Preparation difficulty: {{ $food->preparation_difficulty }}
+    </p>
 </div>
 <div>
-    {{ $food->preparation_desc }}
+    <p>
+        Preparation description: {{ $food->preparation_desc }}
+    </p>
 </div>
 
 <p>This food consists of: </p>

@@ -24,9 +24,6 @@ class ValidateExcerciseRequest extends FormRequest
      */
     public function rules()
     {
-        
-
-        // TODO: Find solution for checkbox validation
         return [
             'name' => 'required|max:50',
             'description' => 'required|string',

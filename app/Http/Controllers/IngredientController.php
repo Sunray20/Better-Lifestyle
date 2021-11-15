@@ -53,7 +53,7 @@ class IngredientController extends Controller
         // Store image
         if(!empty($request->image))
         {
-            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
+            $imageName = time(). '-' . $request->validated('name')['name'] . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
 
             $ingredient->image_path = $imageName;
@@ -113,8 +113,7 @@ class IngredientController extends Controller
             if($ingredient->image_path) {
                 unlink(public_path() . '/images/' . $ingredient->image_path);
             }
-
-            $imageName = time(). '-' . $request->name . '.' . $request->image->extension();
+            $imageName = time(). '-' . $request->validated('name')['name'] . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $imageName);
 
             $ingredient->image_path = $imageName;
