@@ -1,6 +1,9 @@
 <x-bootstrap-layout/>
 <form action="/excercises" method="POST" enctype="multipart/form-data">
     @csrf
+    @foreach($errors->all() as $error)
+        {{ $error }}
+    @endforeach
     <div>
         <input type="text" name="name" placeholder="Excercise name...">
     </div>

@@ -70,8 +70,6 @@ class ExcerciseController extends Controller
 
         // Get all excerciseType names
         $excerciseTypes = ExcerciseType::all();
-        $excerciseTypesNames = $excerciseTypes->pluck('name');
-        $excerciseTypesNames->all();
 
         foreach($request->all() as $key => $item)
         {
@@ -126,8 +124,6 @@ class ExcerciseController extends Controller
         $excercise->fill($request->validated());
 
         $excerciseTypes = ExcerciseType::all();
-        $excerciseTypesNames = $excerciseTypes->pluck('name');
-        $excerciseTypesNames->all();
 
         // Iterate through every input field
         foreach($request->all() as $key => $item)

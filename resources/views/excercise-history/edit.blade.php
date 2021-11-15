@@ -18,6 +18,9 @@
     <div>
         Achieved weight:<input type="text" name="achieved_weight" value="{{ $excerciseHistory->achieved_weight }}">
     </div>
+    <div>
+        Date:<input type="date" name="date" value="{{ $excerciseHistory->date }}">
+    </div>
 
     <div>
         <input type="submit" value="submit" class="btn btn-primary">

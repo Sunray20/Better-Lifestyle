@@ -1,6 +1,9 @@
 <x-bootstrap-layout/>
 <form action="/excercises/{{ $excercise->id }}" method="POST" enctype="multipart/form-data">
     @csrf
+    @foreach($errors->all() as $error)
+        {{ $error }}
+    @endforeach
     @method('PUT')
     <div>
         <input type="text" name="name" value="{{ $excercise->name }}">
