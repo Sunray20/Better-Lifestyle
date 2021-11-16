@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\ActivityLevel;
 
 class ValidateUserRequest extends FormRequest
 {
@@ -25,7 +26,8 @@ class ValidateUserRequest extends FormRequest
     {
         return [
             'sex' => 'required|min:0|max:1',
-            'height' => 'required|numeric|min:10|max:250',
+            'age' => 'required|integer|min:1|max:120',
+            'height' => 'required|numeric|min:1|max:250',
             'height_unit' => 'required|string',
             'weight' => 'required|numeric|min:10|max:250',
             'weight_unit' => 'required|string',
@@ -42,13 +44,19 @@ class ValidateUserRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
+            $activityLevels = ActivityLevel::all();
+            $activityLevel = $this->request->get('activity_level');
+
+            if(!in_array($activityLevel, $activityLevels->pluck('id')->toArray())) {
+                $validator->errors()->add('activity_level', 'Unsupported activity level!');
+            }
+
             // TODO: fix hardcode
             if($this->request->get('weight_unit') != 'kg' && $this->request->get('weight_unit') != 'pound') {
                 $validator->errors()->add('weight_unit', 'Unsupported unit!');
             }
 
-            if($this->request->get('height_unit') != 'cm' && $this->request->get('height_unit') != 'inch') {
-                //dd($this->request->get('height_unit'));
+            if($this->request->get('height_unit') != 'cm' && $this->request->get('height_unit') != 'feet') {
                 $validator->errors()->add('height_unit', 'Unsupported unit!');
             }
         });

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\DietType;
 use App\Models\DietTypeUser;
+use App\Models\ActivityLevel;
 use App\Http\Requests\ValidateUserRequest;
+use App\Helpers\Utilities;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -32,7 +34,10 @@ class UserController extends Controller
         $selectedDietTypes = $user->dietTypes;
         $unselectedDietTypes = DietType::all();
         $unselectedDietTypes = $unselectedDietTypes->diff($selectedDietTypes);
-        return view('user.edit', ['user' => $user, 'unselectedDietTypes' => $unselectedDietTypes]);
+        $activityLevels = ActivityLevel::all();
+        return view('user.edit', ['user' => $user,
+         'unselectedDietTypes' => $unselectedDietTypes,
+         'activityLevels' => $activityLevels]);
     }
 
     /**
@@ -44,18 +49,12 @@ class UserController extends Controller
      */
     public function update(ValidateUserRequest $request, User $user)
     {
-        $targetKcal = 2000;
         $user->fill($request->validated());
+        $user->activity_level_id = $request->get('activity_level');
+
+        // TODO: move it to helper class function
+        $user->target_kcal = Utilities::calculateTargetCalories($request);
         $user->save();
-        // TODO: Target calorie should be calculated
-        /*$user->update([
-            'unit' => $request->input('unit'),
-            'height' =>
-            'weight' => $request->input('weight'),
-            'target_weight' => $request->input('target_weight'),
-            'diet_goal' => $dietGoal,
-            'target_kcal' => $targetKcal
-        ]);*/
 
         $dietTypes = DietType::all();
 

@@ -3,6 +3,9 @@
     <p>Sex: {{ $user->sex ? 'Female' : 'Male'}}</p>
 </div>
 <div>
+    <p>Age: {{ $user->age }}</p>
+</div>
+<div>
     <p>Height: {{ $user->height }} {{ $user->height_unit }}</p>
 </div>
 <div>
@@ -10,6 +13,9 @@
 </div>
 <div>
     <p>Target weight: {{ $user->target_weight }} {{ $user->weight_unit }}</p>
+</div>
+<div>
+    <p>Activity level: {{ $user->activityLevel->name }}</p>
 </div>
 <div>
     <p>Target Calories: {{ $user->target_kcal }} kcal</p>
