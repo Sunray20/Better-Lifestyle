@@ -1,52 +1,125 @@
-<x-bootstrap-layout/>
+@extends('layouts.details')
+
+@section('content')
 <form action="/ingredients/{{ $ingredient->id }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <div>
-        <label for="name">Name of the ingredient: </label>
-        <input type="text" name="name" value="{{ $ingredient->name }}">
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="name">Name of the ingredient: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="text" name="name" value="{{ $ingredient->name }}">
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
-    <div>
-        <label for="calorie">Calorie amount: </label>
-        <input type="text" name="calorie" value="{{ $ingredient->calorie }}">
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="calorie">Calorie amount: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="text" name="calorie" value="{{ $ingredient->calorie }}">
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
-    <div>
-        <label for="protein">Protein amount: </label>
-        <input type="text" name="protein" value="{{ $ingredient->protein }}">
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="protein">Protein amount: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="text" name="protein" value="{{ $ingredient->protein }}">
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
-    <div>
-        <label for="carb">Carb amount: </label>
-        <input type="text" name="carb" value="{{ $ingredient->carb }}">
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="carb">Carb amount: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="text" name="carb" value="{{ $ingredient->carb }}">
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
-    <div>
-        <label for="fat">Fat amount: </label>
-        <input type="text" name="fat" value="{{ $ingredient->fat }}">
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="fat">Fat amount: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="text" name="fat" value="{{ $ingredient->fat }}">
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
-    <div>
-        <label for="amount">Ingredient amount: </label>
-        <input type="text" name="amount" value="{{ $ingredient->amount }}">
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="amount">Ingredient amount: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="text" name="amount" value="{{ $ingredient->amount }}">
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
-    <div>
-        <label for="unit">Unit: </label>
-        <select id="unit" name="unit">
-            <option value="g"       {{ $ingredient->unit == 'g' ? 'selected' : '' }}>g</option>
-            <option value="pound"   {{ $ingredient->unit == 'pound' ? 'selected' : '' }}>pound</option>
-            <option value="dL"      {{ $ingredient->unit == 'dL' ? 'selected' : '' }}>dL</option>
-            <option value="mL"      {{ $ingredient->unit == 'mL' ? 'selected' : '' }}>mL</option>
-        </select>
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="unit">Unit: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <select class="form-select" id="unit" name="unit">
+                <option value="g"       {{ $ingredient->unit == 'g' ? 'selected' : '' }}>g</option>
+                <option value="pound"   {{ $ingredient->unit == 'pound' ? 'selected' : '' }}>pound</option>
+                <option value="dL"      {{ $ingredient->unit == 'dL' ? 'selected' : '' }}>dL</option>
+                <option value="mL"      {{ $ingredient->unit == 'mL' ? 'selected' : '' }}>mL</option>
+            </select>
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
-    <div>
-        <label for="image" class="form-label">Upload Image:</label>
-        <input type="file" name="image" class="form-control"/>
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="image" class="form-label">Upload Image:</label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="file" name="image" class="form-control"/>
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
+
     @if (auth()->user()->is_admin == 1)
-        <div>
-            <label for="validated" class="form-label">The data is valid?</label>
-            <input type="checkbox" name="validated" {{ ($ingredient->validated) ? 'checked' : '' }}>
+        <div class="row">
+            <div class="col-lg-3 col-sm-0"></div>
+            <div class="col-lg-3 col-sm-12 data-label">
+                <label for="validated" class="form-label">The data is valid?</label>
+            </div>
+            <div class="col-lg-3 col-sm-12 data">
+                <input type="checkbox" name="validated" {{ ($ingredient->validated) ? 'checked' : '' }}>
+            </div>
+            <div class="col-lg-3 col-sm-0"></div>
         </div>
     @endif
 
-    <input type="submit" value="Submit">
-
+    <div class="row pt-3">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3 data-label">
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">Return</a>
+        </div>
+        <div class="col-lg-3 data">
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
 </form>
-<a href="{{ url()->previous() }}">Return</a>
+@endsection

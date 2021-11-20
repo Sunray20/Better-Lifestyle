@@ -23,7 +23,7 @@ class UpdateUsersTable extends Migration
             $table->boolean ('sex')->default(0);
             $table->integer ('age')->default(20);
             $table->unsignedInteger('target_kcal')->default('2000');
-            $table->foreignId('activity_level_id')->constrained('activity_levels');
+            $table->foreignId('activity_level_id')->default(1)->constrained('activity_levels');
         });
     }
 

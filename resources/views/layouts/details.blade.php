@@ -69,7 +69,7 @@
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link" href="/user/{{ auth()->user()->id }}">User Data</a>
                     </li>
-                    <form id="logout" method="POST" action="{{ route('logout') }}" class="mb-0">
+                    <form method="POST" action="{{ route('logout') }}" class="mb-0">
                         @csrf
                         <li class="nav-item mx-0 mx-lg-1">
                             <a href="#" onclick="logout()" class="nav-link me-auto">Log out</a>
@@ -92,8 +92,13 @@
           </div>
         </div>
     </nav>
+
     <header class="masthead bg-primary text-white text-center d-flex justify-content-center align-items-center">
-        @yield('content')
+        <section class="details-container d-flex bg-primary text-center bg-white align-items-center">
+            <div class="container text-secondary text-left">
+                @yield('content')
+            </div>
+        </section>
     </header>
 
     <!-- Footer-->

@@ -21,7 +21,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin'),
             'is_admin' => 1,
             'email_verified_at' => '2021-10-18 11:04:44',
-            'activity_level_id' => '1',
         ]);
 
         DB::table('users')->insert([
@@ -30,7 +29,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('test'),
             'is_admin' => 0,
             'email_verified_at' => '2021-10-18 11:04:44',
-            'activity_level_id' => '1'
         ]);
     }
 }

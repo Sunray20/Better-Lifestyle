@@ -1,101 +1,179 @@
-<x-bootstrap-layout/>
+@extends('layouts.details')
+<!-- TODO: Create incompatible food and diet logic.
+            Add design -->
+@section('content')
 <form action="/user/{{ $user->id }}" method="POST">
     @csrf
     @method('PUT')
     @foreach ($errors->all() as $error)
         {{ $error }}
     @endforeach
-    <div>
-        <label for="sex">Male</label>
-        <input type="radio" name="sex" value="0" {{ $user->sex == '0' ? 'checked' : '' }}>
-        <label for="sex">Female</label>
-        <input type="radio" name="sex" value="1" {{ $user->sex == '1' ? 'checked' : '' }}>
-    </div>
-    <div>
-        <label for="age">Age: </label>
-        <input type="text" name="age" value="{{ $user->age }}">
-    </div>
-    <div>
-        <label for="height">Height: </label>
-        <input type="text" name="height" id="height" value="{{ $user->height }}">
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <span>Sex:</span>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <label class="form-label" for="sex">Male</label>
+            <input class="form-check-input" type="radio" name="sex" value="0" {{ $user->sex == '0' ? 'checked' : '' }}>
+            <label class="form-label" for="sex">Female</label>
+            <input class="form-check-input" type="radio" name="sex" value="1" {{ $user->sex == '1' ? 'checked' : '' }}>
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
 
-    <div>
-        <label for="height_unit">cm</label>
-        <input onclick="transformHeight(this)" type="radio" id="cm" name="height_unit" value="cm" {{ $user->height_unit == 'cm' ? 'checked' : '' }}>
-        <label for="height_unit">feet</label>
-        <input onclick="transformHeight(this)" type="radio" id="feet" name="height_unit" value="feet" {{ $user->height_unit == 'feet' ? 'checked' : '' }}>
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="age">Age: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="text" name="age" value="{{ $user->age }}">
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
 
-    <div>
-        <label for="weight">Current weight: </label>
-        <input type="text" name="weight" id="weight" value="{{ $user->weight }}">
-    </div>
-    <div>
-        <label for="weight_unit">kg</label>
-        <input onclick="transformWeight(this)" id="kg" type="radio" name="weight_unit" value="kg" {{ $user->weight_unit == 'kg' ? 'checked' : '' }}>
-        <label for="weight_unit">pound</label>
-        <input onclick="transformWeight(this)" id="pound" type="radio" name="weight_unit" value="pound" {{ $user->weight_unit == 'pound' ? 'checked' : '' }}>
-    </div>
-    <div>
-        <label for="target_weight">Target weight({{ $user->weight_unit }}): </label>
-        <input type="text" name="target_weight" id="target_weight" value="{{ $user->target_weight }}">
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="height">Height: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="text" name="height" id="height" value="{{ $user->height }}">
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
 
-    <div>
-        <label for="activity_level">Activity level: </label>
-        <!-- TODO: Create incompatible food and diet logic.
-            Add design -->
-        <select name="activity_level" id="activity_level">
-            @foreach ($activityLevels as $activityLevel)
-                <option value="{{ $activityLevel->id }}"
-                    {{ ($activityLevel->id == $user->activityLevel->id) ? 'selected' : '' }}>{{ $activityLevel->name }}</option>
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <span>Height unit:</span>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <label for="height_unit">cm</label>
+            <input class="form-check-input" onclick="transformHeight(this)" type="radio" id="cm" name="height_unit" value="cm" {{ $user->height_unit == 'cm' ? 'checked' : '' }}>
+            <label for="height_unit">feet</label>
+            <input class="form-check-input" onclick="transformHeight(this)" type="radio" id="feet" name="height_unit" value="feet" {{ $user->height_unit == 'feet' ? 'checked' : '' }}>
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="weight">Current weight: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="text" name="weight" id="weight" value="{{ $user->weight }}">
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <span>Weight unit:</span>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <label for="weight_unit">kg</label>
+            <input class="form-check-input" onclick="transformWeight(this)" id="kg" type="radio" name="weight_unit" value="kg" {{ $user->weight_unit == 'kg' ? 'checked' : '' }}>
+            <label for="weight_unit">pound</label>
+            <input class="form-check-input" onclick="transformWeight(this)" id="pound" type="radio" name="weight_unit" value="pound" {{ $user->weight_unit == 'pound' ? 'checked' : '' }}>
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="target_weight">Target weight({{ $user->weight_unit }}): </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <input class="form-control" type="text" name="target_weight" id="target_weight" value="{{ $user->target_weight }}">
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <label for="activity_level">Activity level: </label>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            <select class="form-select" name="activity_level" id="activity_level">
+                @foreach ($activityLevels as $activityLevel)
+                    <option value="{{ $activityLevel->id }}"
+                        {{ ($activityLevel->id == $user->activityLevel->id) ? 'selected' : '' }}>{{ $activityLevel->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-3 col-sm-12 data-label">
+            <span>Followed diets:</span>
+        </div>
+        <div class="col-lg-3 col-sm-12 data">
+            @foreach ($user->dietTypes as $type)
+                <input class="check-input" type="checkbox" name="{{ $type->name }}" checked>
+                <label class="form-check-label" for="{{ $type->name }}">{{ $type->name }}</label>
             @endforeach
-        </select>
+            @foreach ($unselectedDietTypes as $type)
+                <input class="check-input" type="checkbox" name="{{ $type->name }}">
+                <label class="form-check-label" for="{{ $type->name }}">{{ $type->name }}</label>
+            @endforeach
+        </div>
+        <div class="col-lg-3 col-sm-0"></div>
     </div>
 
-    <div>
-        Followed diets:
-        @foreach ($user->dietTypes as $type)
-            <input type="checkbox" name="{{ $type->name }}" checked>
-            <label for="{{ $type->name }}">{{ $type->name }}</label>
-        @endforeach
-        @foreach ($unselectedDietTypes as $type)
-            <input type="checkbox" name="{{ $type->name }}">
-            <label for="{{ $type->name }}">{{ $type->name }}</label>
-        @endforeach
-    </div>
-    <div>
-        <input type="submit" value="submit" class="btn btn-primary">
+    <div class="row pt-3">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-3 data-label">
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">Return</a>
+        </div>
+        <div class="col-lg-3 data">
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </div>
+        <div class="col-lg-3"></div>
     </div>
 </form>
-<a href="{{ url()->previous() }}">Return</a>
+@endsection
 
-<script>
-    let height = document.getElementById('height');
-    let heightLastChecked = (document.getElementById('cm').checked)
-                            ? document.getElementById('cm') : document.getElementById('feet');
+<script async defer>
+    var height;
+    var heightLastChecked;
+    var weight;
+    var targetWeight;
+    var weightLastChecked;
 
+    window.addEventListener('DOMContentLoaded', (event) => {
+        height = document.getElementById('height');
+        heightLastChecked = (document.getElementById('cm').checked)
+                                ? document.getElementById('cm') : document.getElementById('feet');
 
-    let weight = document.getElementById('weight');
-    let targetWeight = document.getElementById('target_weight');
-    let weightLastChecked = (document.getElementById('kg').checked)
-                            ? document.getElementById('kg') : document.getElementById('pound');
+        weight = document.getElementById('weight');
+        targetWeight = document.getElementById('target_weight');
+        weightLastChecked = (document.getElementById('kg').checked)
+                                ? document.getElementById('kg') : document.getElementById('pound');
+    });
 
     function transformWeight(selected)
-    {
-        if(weightLastChecked != selected) {
-            weightLastChecked = selected;
+        {
+            if(weightLastChecked != selected) {
+                weightLastChecked = selected;
 
-            if(document.getElementById('kg').checked) {
-                weight.value = (weight.value / 2.2).toFixed(2);
-                targetWeight.value = (targetWeight.value / 2.2).toFixed(2);
-            } else if(document.getElementById('pound').checked) {
-                weight.value = (weight.value * 2.2).toFixed(2);
-                targetWeight.value = (targetWeight.value * 2.2).toFixed(2);
+                if(document.getElementById('kg').checked) {
+                    weight.value = (weight.value / 2.2).toFixed(2);
+                    targetWeight.value = (targetWeight.value / 2.2).toFixed(2);
+                } else if(document.getElementById('pound').checked) {
+                    weight.value = (weight.value * 2.2).toFixed(2);
+                    targetWeight.value = (targetWeight.value * 2.2).toFixed(2);
+                }
             }
         }
-    }
 
     function transformHeight(selected)
     {
@@ -109,4 +187,5 @@
             }
         }
     }
+
 </script>

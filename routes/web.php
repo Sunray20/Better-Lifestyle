@@ -20,17 +20,17 @@ use App\Http\Controllers\DietTypeController;
 |
 */
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
+
+/*Route::get('/dashboard', function () {
+    return view('dashboard');
+});*/
 
 Route::resource('/excercises', ExcerciseController::class)->middleware(['auth', 'verified', 'is_admin']);
-Route::get('/excercises', [ExcerciseController::class, 'index'])->withoutMiddleware('is_admin');
-Route::get('/excercises/{excercise}', [ExcerciseController::class, 'getExcercisesByType'])->withoutMiddleware('is_admin')->name('excerciseType');
-Route::get('/excercises/{excercise_type}/{excercise}', [ExcerciseController::class, 'show'])->withoutMiddleware('is_admin');
+Route::get('/excercises', [ExcerciseController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/excercises/{excercise}', [ExcerciseController::class, 'getExcercisesByType'])->middleware(['auth', 'verified'])->name('excerciseType');
+Route::get('/excercises/{excercise_type}/{excercise}', [ExcerciseController::class, 'show'])->middleware(['auth', 'verified']);
 
 Route::resource('/user', UserController::class)->middleware(['auth', 'verified'])->only(
     'show', 'edit', 'update', 'delete'
@@ -48,7 +48,7 @@ Route::resource('/ingredients', IngredientController::class)->middleware(['auth'
 Route::resource('/foods', FoodController::class)->middleware(['auth', 'verified']);
 
 Route::resource('/diet-types', DietTypeController::class)->middleware(['auth', 'verified', 'is_admin']);
-Route::get('/diet-types', [DietTypeController::class, 'index'])->withoutMiddleware('is_admin');
-Route::get('/diet-types/{diet_type}', [DietTypeController::class, 'show'])->withoutMiddleware('is_admin');
+Route::get('/diet-types', [DietTypeController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/diet-types/{diet_type}', [DietTypeController::class, 'show'])->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
