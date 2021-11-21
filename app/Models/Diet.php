@@ -9,13 +9,15 @@ class Diet extends Model
 {
     use HasFactory;
 
+    protected $fillable = [ 'food_id', 'course', 'date' ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function foods()
+    public function food()
     {
-        return $this->belongsToMany(Food::class, 'diet_food');
+        return $this->belongsTo(Food::class);
     }
 }

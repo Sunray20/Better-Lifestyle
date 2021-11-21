@@ -18,7 +18,7 @@ class Food extends Model
 
     public function diets()
     {
-        return $this->belongsToMany(Diet::class, 'diet_food');
+        return $this->hasMany(Diet::class);
     }
 
     public function ingredients()
@@ -29,5 +29,25 @@ class Food extends Model
     public function incompatibleDiets()
     {
         return $this->belongsToMany(DietType::class, 'incompatible_food');
+    }
+
+    public function getMacroes()
+    {
+        $macros = new \stdClass();
+        $macros->calorie = 0;
+        $macros->protein = 0;
+        $macros->carb = 0;
+        $macros->fat = 0;
+
+        $ingredients = $this->ingredients;
+        foreach($ingredients as $ingredient)
+        {
+            $macros->calorie += $ingredient->calorie;
+            $macros->protein += $ingredient->protein;
+            $macros->carb += $ingredient->carb;
+            $macros->fat += $ingredient->fat;
+        }
+
+        return $macros;
     }
 }

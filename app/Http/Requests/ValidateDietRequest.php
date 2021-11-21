@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidateExcerciseHistoryRequest extends FormRequest
+class ValidateDietRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,8 @@ class ValidateExcerciseHistoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'excercise_id' => 'sometimes|required',
-            'target_amount' => 'required|min:1|max:200',
-            'achieved_amount' => 'min:0|max:200',
-            'target_weight' => 'required|min:1|max:200',
-            'achieved_weight' => 'min:0|max:200',
+            'food_id' => 'required',
+            'course' => 'required|string|in:breakfast,lunch,dinner,snack',
             'date' => 'sometimes|required|date|after_or_equal:monday this week|before_or_equal:sunday this week'
         ];
     }
