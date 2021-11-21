@@ -52,7 +52,6 @@ class UserController extends Controller
         $user->fill($request->validated());
         $user->activity_level_id = $request->get('activity_level');
 
-        // TODO: move it to helper class function
         $user->target_kcal = Utilities::calculateTargetCalories($request);
         $user->save();
 

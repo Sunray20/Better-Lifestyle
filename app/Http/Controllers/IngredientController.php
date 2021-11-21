@@ -8,6 +8,14 @@ use App\Http\Requests\ValidateIngredientRequest;
 
 class IngredientController extends Controller
 {
+
+    public function searchIngredients(Request $request)
+    {
+        $ingredients = Ingredient::where('name', 'like', '%' . $request->input('name'). '%')->get('name');
+
+
+        return $ingredients;
+    }
     /**
      * Display a listing of the resource.
      *

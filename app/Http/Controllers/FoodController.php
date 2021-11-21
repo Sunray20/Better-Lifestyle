@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Food;
+use App\Models\Ingredient;
+use App\Models\FoodIngredient;
 use App\Http\Requests\ValidateFoodRequest;
 use Illuminate\Http\Request;
 
@@ -63,6 +65,28 @@ class FoodController extends Controller
         $food->user_id = auth()->user()->id;
         $food->save();
 
+        $ingredients = Ingredient::all();
+
+        // TODO: move it to a function
+        // Iterate through every input field
+        foreach($request->all() as $key => $item)
+        {
+            foreach($ingredients as $ingredient)
+            {
+                // If the field's name is equal to the ingredient->name
+                if($key == $ingredient->name)
+                {
+                    // And if the checkbox was checked then insert new
+                    // food <-> ingredient connection
+                    if($request->input($key) == true) {
+                        FoodIngredient::updateOrCreate(
+                            ['ingredient_id' => $ingredient->id, 'food_id' => $food->id],
+                        );
+                    }
+                }
+            }
+        }
+
         return redirect('/foods');
     }
 
@@ -110,6 +134,38 @@ class FoodController extends Controller
             $request->image->move(public_path('images'), $imageName);
 
             $food->image_path = $imageName;
+        }
+
+        $ingredients = Ingredient::all();
+
+        // TODO: move it to a function
+        // Iterate through every input field
+        foreach($request->all() as $key => $item)
+        {
+            foreach($ingredients as $ingredient)
+            {
+                // If the field's name is equal to the ingredient->name
+                if($key == $ingredient->name)
+                {
+                    // And if the checkbox was checked then insert new
+                    // food <-> ingredient connection
+                    if($request->input($key) == true) {
+                        FoodIngredient::updateOrCreate(
+                            ['ingredient_id' => $ingredient->id, 'food_id' => $food->id],
+                        );
+                    }
+                }
+            }
+        }
+
+        // If an excercise field left unchecked then delete it from pivot table
+        foreach($ingredients as $ingredient)
+        {
+            if($request->get($ingredient->name) == null)
+            {
+                FoodIngredient::where([['ingredient_id', '=', $ingredient->id],
+                                        ['food_id', '=', $food->id]])->delete();
+            }
         }
 
         $food->save();

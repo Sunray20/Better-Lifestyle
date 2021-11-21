@@ -44,6 +44,7 @@ Route::get('/my-routine', [ExcerciseHistoryController::class, 'myRoutine'])->mid
 Route::resource('/workout-routines', WorkoutRoutineController::class)->middleware(['auth', 'verified']);
 
 Route::resource('/ingredients', IngredientController::class)->middleware(['auth', 'verified']);
+Route::get('/search-ingredients', [IngredientController::class, 'searchIngredients']);
 
 Route::resource('/foods', FoodController::class)->middleware(['auth', 'verified']);
 

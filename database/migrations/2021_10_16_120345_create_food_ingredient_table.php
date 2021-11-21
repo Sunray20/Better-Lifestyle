@@ -15,8 +15,8 @@ class CreateFoodIngredientTable extends Migration
     {
         Schema::create('food_ingredient', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('food_id')->constrained('foods');
-            $table->foreignId('ingredient_id')->constrained('ingredients');
+            $table->foreignId('food_id')->constrained('foods')->onDelete('cascade');
+            $table->foreignId('ingredient_id')->constrained('ingredients')->onDelete('cascade');
         });
     }
 
