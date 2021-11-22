@@ -76,7 +76,7 @@
                     <form id="logout" method="POST" action="{{ route('logout') }}" class="mb-0">
                         @csrf
                         <li class="nav-item mx-0 mx-lg-1">
-                            <a href="#" onclick="logout()" class="nav-link me-auto">Log out</a>
+                            <a href="#" id="logout" onclick="logout()" class="nav-link me-auto">Log out</a>
                         </li>
                     </form>
                 @endauth
@@ -138,7 +138,7 @@
     <script>
         function logout()
         {
-            document.getElementById('logout').submit();
+            $('#logout').submit();
         }
     </script>
 

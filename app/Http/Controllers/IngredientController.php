@@ -163,7 +163,6 @@ class IngredientController extends Controller
     public function update(ValidateIngredientRequest $request, Ingredient $ingredient)
     {
         $ingredient->fill($request->validated());
-        // TODO: If time permits check authorization gates and policies
         // TODO: Move image storing into seperate helper class
 
         // Only store the image if a new one was added

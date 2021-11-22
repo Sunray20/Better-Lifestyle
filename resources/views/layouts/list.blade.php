@@ -73,7 +73,7 @@
                     <li class="nav-item mx-0 mx-lg-1">
                         <a class="nav-link" href="/user/{{ auth()->user()->id }}">User Data</a>
                     </li>
-                    <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                    <form method="POST" id="logout" action="{{ route('logout') }}" class="mb-0">
                         @csrf
                         <li class="nav-item mx-0 mx-lg-1">
                             <a href="#" onclick="logout()" class="nav-link me-auto">Log out</a>
@@ -143,7 +143,7 @@
     <script>
         function logout()
         {
-            document.getElementById('logout').submit();
+            $('#logout').submit();
         }
     </script>
 

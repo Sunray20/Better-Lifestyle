@@ -75,7 +75,6 @@ class FoodController extends Controller
      */
     public function create()
     {
-        // TODO: Add the posibility to add ingredients to a food
         return view('food.create');
     }
 
@@ -102,27 +101,7 @@ class FoodController extends Controller
         $food->user_id = auth()->user()->id;
         $food->save();
 
-        $ingredients = Ingredient::all();
-
-        // TODO: move it to a function
-        // Iterate through every input field
-        foreach($request->all() as $key => $item)
-        {
-            foreach($ingredients as $ingredient)
-            {
-                // If the field's name is equal to the ingredient->name
-                if($key == $ingredient->name)
-                {
-                    // And if the checkbox was checked then insert new
-                    // food <-> ingredient connection
-                    if($request->input($key) == true) {
-                        FoodIngredient::updateOrCreate(
-                            ['ingredient_id' => $ingredient->id, 'food_id' => $food->id],
-                        );
-                    }
-                }
-            }
-        }
+        $this->updateFoodIngredientRecords($request, $food);
 
         return redirect('/foods');
     }
@@ -160,6 +139,7 @@ class FoodController extends Controller
     {
         $food->fill($request->validated());
 
+        // TODO: Move image storing
         // Only store the image if a new one was added
         if(!empty($request->image))
         {
@@ -172,10 +152,36 @@ class FoodController extends Controller
 
             $food->image_path = $imageName;
         }
+        $food->save();
+        $this->updateFoodIngredientRecords($request, $food);
 
+        return redirect('/foods');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Food  $food
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Food $food)
+    {
+        //If it's his or is_admin then let it be deleted
+        if($food->user_id == auth()->user()->id || auth()->user()->is_admin == 1) {
+            $food->delete();
+        }
+
+        return redirect('/foods');
+    }
+
+    /**
+     * Updates the records in food_ingredient table
+     * Based on the checkbox on the form page
+     */
+    public function updateFoodIngredientRecords(ValidateFoodRequest $request, $food)
+    {
         $ingredients = Ingredient::all();
 
-        // TODO: move it to a function
         // Iterate through every input field
         foreach($request->all() as $key => $item)
         {
@@ -204,25 +210,5 @@ class FoodController extends Controller
                                         ['food_id', '=', $food->id]])->delete();
             }
         }
-
-        $food->save();
-
-        return redirect('/foods');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Food  $food
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Food $food)
-    {
-        //If it's his or is_admin then let it be deleted
-        if($food->user_id == auth()->user()->id || auth()->user()->is_admin == 1) {
-            $food->delete();
-        }
-
-        return redirect('/foods');
     }
 }

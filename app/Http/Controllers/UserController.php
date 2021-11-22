@@ -55,9 +55,32 @@ class UserController extends Controller
         $user->target_kcal = Utilities::calculateTargetCalories($request);
         $user->save();
 
-        $dietTypes = DietType::all();
+        $this->updateDietTypeUserRecords($request, $user);
 
-        // TODO: move it to a function
+        return redirect('/user/'.$user->id);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        //If the user deletes it's profile he should be logged out
+        $user->delete();
+
+        return redirect('/logout');
+    }
+
+    /**
+     * Updates the records in diet_type_user table
+     * Based on the checkbox on the form page
+     */
+    public function updateDietTypeUserRecords(ValidateUserRequest $request, $user)
+    {
+        $dietTypes = DietType::all();
         // Iterate through every input field
         foreach($request->all() as $key => $item)
         {
@@ -83,24 +106,8 @@ class UserController extends Controller
             if($request->get($dietType->name) == null)
             {
                 DietTypeUser::where([['diet_type_id', '=', $dietType->id],
-                                              ['user_id', '=', $user->id]])->delete();
+                                     ['user_id', '=', $user->id]])->delete();
             }
         }
-
-        return redirect('/user/'.$user->id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //If the user deletes it's profile he should be logged out
-        $user->delete();
-
-        return redirect('/logout');
     }
 }

@@ -1,6 +1,4 @@
 @extends('layouts.details')
-<!-- TODO: Create incompatible food and diet logic.
-            Add design -->
 @section('content')
 <form action="/user/{{ $user->id }}" method="POST">
     @csrf

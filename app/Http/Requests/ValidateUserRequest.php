@@ -28,9 +28,9 @@ class ValidateUserRequest extends FormRequest
             'sex' => 'required|min:0|max:1',
             'age' => 'required|integer|min:1|max:120',
             'height' => 'required|numeric|min:1|max:250',
-            'height_unit' => 'required|string',
+            'height_unit' => 'required|string|in:cm,feet',
             'weight' => 'required|numeric|min:10|max:250',
-            'weight_unit' => 'required|string',
+            'weight_unit' => 'required|string|in:kg,pound',
             'target_weight' => 'required|numeric|min:10|max:250',
         ];
     }
@@ -49,15 +49,6 @@ class ValidateUserRequest extends FormRequest
 
             if(!in_array($activityLevel, $activityLevels->pluck('id')->toArray())) {
                 $validator->errors()->add('activity_level', 'Unsupported activity level!');
-            }
-
-            // TODO: fix hardcode
-            if($this->request->get('weight_unit') != 'kg' && $this->request->get('weight_unit') != 'pound') {
-                $validator->errors()->add('weight_unit', 'Unsupported unit!');
-            }
-
-            if($this->request->get('height_unit') != 'cm' && $this->request->get('height_unit') != 'feet') {
-                $validator->errors()->add('height_unit', 'Unsupported unit!');
             }
         });
     }

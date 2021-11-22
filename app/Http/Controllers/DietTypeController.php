@@ -37,7 +37,6 @@ class DietTypeController extends Controller
      */
     public function store(ValidateDietTypeRequest $request)
     {
-        // TODO: add possible diet types to user settings screen, basic user can only view and checkbox them
         // TODO: Create incompatible food logic
         if(auth()->user()->is_admin == 1) {
             $dietType = new DietType();

@@ -31,7 +31,6 @@ class ExcerciseController extends Controller
                      ['excercises' => $excercises, 'excerciseType' => $type]);
         }
 
-        // TODO: Add custom 404 page with navbar
         abort(404);
     }
 
