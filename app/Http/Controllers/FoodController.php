@@ -144,7 +144,7 @@ class FoodController extends Controller
         if(!empty($request->image))
         {
             // If an old image exists then delete it
-            if($ingredient->image_path) {
+            if($food->image_path) {
                 unlink(public_path() . '/images/' . $food->image_path);
             }
             $imageName = time(). '-' . $request->validated('name')['name'] . '.' . $request->image->extension();

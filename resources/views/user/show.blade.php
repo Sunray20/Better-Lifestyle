@@ -61,7 +61,7 @@
         <div class="col-lg-3"></div>
         <div class="col-lg-3 data-label"><a href="/user/{{ $user->id }}/edit" class="btn btn-primary">Edit my data</a></div>
         <div class="col-lg-3 data">
-            <form action="user/{{ $user->id }}" method="POST">
+            <form action="/user/{{ $user->id }}" method="POST">
                 @csrf
                 @method('delete')
                 <button type="submit" class="btn btn-danger">Delete my account</button>
