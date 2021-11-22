@@ -8,6 +8,7 @@
                 <h5 class="modal-title" id="createModalLabel">Add new meal</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <form action="/diet" method="POST">
                 @csrf
                 <div class="modal-body">
@@ -56,8 +57,8 @@
         </div>
     </div>
 </div>
-@foreach ($errors->all() as $message)
-    {{ $message }}
+@foreach ($errors->all() as $error)
+    <p class="text-danger">{{ $error }}</p>
 @endforeach
 <div class="table-responsive bg-white">
     <table class="table table-bordered align-middle text-center h-75">

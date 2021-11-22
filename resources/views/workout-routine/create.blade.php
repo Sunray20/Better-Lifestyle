@@ -1,9 +1,13 @@
 @extends('layouts.details')
 
 @section('content')
+
+@foreach ($errors->all() as $error)
+    <p class="text-danger">{{ $error }}</p>
+@endforeach
+
 <form action="/workout-routines" method="POST">
     @csrf
-
 
     <div class="row">
         <div class="col-lg-3 col-sm-0"></div>

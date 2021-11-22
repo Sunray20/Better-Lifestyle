@@ -1,7 +1,9 @@
 @extends('layouts.details')
 
 @section('content')
-
+    @foreach ($errors->all() as $error)
+        <p class="text-danger">{{ $error }}</p>
+    @endforeach
 <h5>Forgot your password?</h5>
 <h6 class="pb-4">Let us know your email address and we will email you a password reset link that will allow you to choose a new one.</h6>
     <form method="POST" action="{{ route('password.email') }}">

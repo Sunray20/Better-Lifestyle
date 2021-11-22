@@ -3,8 +3,8 @@
 @section('content')
 <form action="/excercises" method="POST" enctype="multipart/form-data">
     @csrf
-    @foreach($errors->all() as $error)
-        {{ $error }}
+    @foreach ($errors->all() as $error)
+        <p class="text-danger">{{ $error }}</p>
     @endforeach
     <div class="row">
         <div class="col-lg-3 col-sm-0"></div>
