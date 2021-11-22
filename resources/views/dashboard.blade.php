@@ -1,17 +1,25 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.bootstrap-layout')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+@section('content')
+    <div class="justify-content-center align-items-center">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="flex-fill">
+                    <img class="masthead-avatar mb-5" src="{{ asset('images/fitness.svg') }}" alt="..." />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="flex-fill">
+                    <h1 class="masthead-heading text-uppercase mb-0">A healthier way of life</h1>
+                    <div class="divider-custom divider-light">
+                        <div class="divider-custom-line"></div>
+                        <div class="divider-custom-icon"><i class="fas fa-dumbbell"></i></div>
+                        <div class="divider-custom-line"></div>
+                    </div>
+                    <p class="masthead-subheading font-weight-light mb-0">Workouts - Exercises - Diets</p>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+
+@endsection
