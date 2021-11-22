@@ -15,8 +15,8 @@ class CreateDietTypeUser extends Migration
     {
         Schema::create('diet_type_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('diet_type_id')->constrained('diet_types');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('diet_type_id')->constrained('diet_types')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
     }
 

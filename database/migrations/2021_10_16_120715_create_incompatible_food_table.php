@@ -15,9 +15,8 @@ class CreateIncompatibleFoodTable extends Migration
     {
         Schema::create('incompatible_food', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('diet_type_id')->constrained('diet_types');
-            $table->foreignId('food_id')->constrained('foods');
-            $table->timestamps();
+            $table->foreignId('diet_type_id')->constrained('diet_types')->onDelete('cascade');
+            $table->foreignId('food_id')->constrained('foods')->onDelete('cascade');
         });
     }
 

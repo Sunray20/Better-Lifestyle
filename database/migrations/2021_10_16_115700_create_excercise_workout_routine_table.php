@@ -15,8 +15,8 @@ class CreateExcerciseWorkoutRoutineTable extends Migration
     {
         Schema::create('excercise_workout_routine', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('excercise_id')->constrained('excercises');
-            $table->foreignId('workout_routine_id')->constrained('workout_routines');
+            $table->foreignId('excercise_id')->constrained('excercises')->onDelete('cascade');
+            $table->foreignId('workout_routine_id')->constrained('workout_routines')->onDelete('cascade');
         });
     }
 
