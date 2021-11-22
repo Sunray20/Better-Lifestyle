@@ -13,7 +13,6 @@
         </div>
     </div>
 </form>
-
 @isset($ingredients)
     @foreach ($ingredients as $ingredient)
         <div class="col-md-3 pt-4 pb-4">

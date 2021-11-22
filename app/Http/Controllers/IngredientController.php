@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidateIngredientRequest;
+use GuzzleHttp\Client;
+use Illuminate\Database\Eloquent\Collection;
 
 class IngredientController extends Controller
 {
@@ -24,11 +26,61 @@ class IngredientController extends Controller
     public function index(Request $request)
     {
         // First it should search in DB then make an API call
-        // TODO: add api call
         $ingredientName = $request->input('search');
         if(!empty($ingredientName))
         {
-            $ingredients = Ingredient::where('name', $ingredientName)->get();
+            $ingredients = Ingredient::where('name', 'like', '%'.$ingredientName.'%')->get();
+            if($ingredients->isEmpty())
+            {
+                $client = new Client();
+                $res = $client->request('GET', 'https://api.spoonacular.com/food/ingredients/search?query='.$ingredientName.'&apiKey='.env('FOOD_API_KEY'));
+                if($res->getStatusCode() == 200)
+                {
+                    $decodedResults = json_decode($res->getBody())->results;
+                    // The API gives back false results so only use the first one
+                    // Thats the most accurate
+
+                    // send a new request for the details of the ingredient
+                    $res = $client->request('GET', 'https://api.spoonacular.com/food/ingredients/'.$decodedResults[0]->id.'/information?amount=100&unit=grams&apiKey='.env('FOOD_API_KEY'));
+
+                    if($res->getStatusCode() == 200) {
+                        $decodedVal = json_decode($res->getBody());
+                        $decodedNutritions = $decodedVal->nutrition;
+
+                        $ingredient = new Ingredient();
+                        $ingredient->name = $decodedVal->name;
+                        $ingredient->user_id = auth()->user()->id;
+                        $ingredient->amount = 100; // Always search for 100 (grams)
+                        $ingredient->validated = 1;
+
+                        foreach($decodedNutritions->nutrients as $key => $nutrient)
+                        {
+                            switch($nutrient->title)
+                            {
+                                case 'Calories':
+                                    $ingredient->calorie = $nutrient->amount;
+                                    $ingredient->unit = $nutrient->unit;
+                                    break;
+                                case 'Protein':
+                                    $ingredient->protein = $nutrient->amount;
+                                    $ingredient->unit = $nutrient->unit;
+                                    break;
+                                case 'Carbohydrates':
+                                    $ingredient->carb = $nutrient->amount;
+                                    $ingredient->unit = $nutrient->unit;
+                                    break;
+                                case 'Fat':
+                                    $ingredient->fat = $nutrient->amount;
+                                    $ingredient->unit = $nutrient->unit;
+                                    break;
+                            }
+                        }
+                        $ingredient->save();
+                        $ingredients = Ingredient::where('name', 'like', '%'.$ingredientName.'%')->get(); //Not the best
+                        return view('ingredient.index', ['ingredients' => $ingredients]);
+                    }
+                }
+            }
         }
         else
         {

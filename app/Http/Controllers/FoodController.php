@@ -7,6 +7,7 @@ use App\Models\Ingredient;
 use App\Models\FoodIngredient;
 use App\Http\Requests\ValidateFoodRequest;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 class FoodController extends Controller
 {
@@ -18,11 +19,47 @@ class FoodController extends Controller
     public function index(Request $request)
     {
         // First it should search in DB then make an API call
-        // TODO: add api call
         $foodName = $request->input('search');
         if(!empty($foodName))
         {
-            $foods = Food::where('name', $foodName)->get();
+            $foods = Food::where('name', 'like', '%'.$foodName.'%')->get();
+            // It is possible to add API call, but we would need to save the
+            // Ingredients of the food, which is a lot of api calls
+            // TODO: Finish API call
+            /*if($foods->isEmpty())
+            {
+                $client = new Client();
+                $res = $client->request('GET', 'https://api.spoonacular.com/recipes/complexSearch?query='.$foodName.'&number=1&apiKey='.env('FOOD_API_KEY'));
+                if($res->getStatusCode() == 200)
+                {
+                    $decodedResults = json_decode($res->getBody())->results;
+                    // The API gives back false results so only use the first one
+                    // Thats the most accurate
+
+                    // send a new request for the details of the ingredient
+                    $res = $client->request('GET', 'https://api.spoonacular.com/recipes/{id}/information'.$decodedResults[0]->id.'/information?amount=100&unit=grams&apiKey='.env('FOOD_API_KEY'));
+
+                    if($res->getStatusCode() == 200) {
+                        $decodedVal = json_decode($res->getBody());
+                        $decodedNutritions = $decodedVal->nutrition;
+                        var_dump($decodedNutritions);
+                        $food = new Food();
+
+                        foreach($decodedNutritions->nutrients as $key => $nutrient)
+                        {
+                            switch($nutrient->title)
+                            {
+                                case 'calorie':
+                                    $food->calorie = $nutrient;
+                                    break;
+                                case 'protein': break;
+                                case 'carb': break;
+                                case 'fat': break;
+                            }
+                        }
+                    }
+                }
+            }*/
         }
         else
         {
