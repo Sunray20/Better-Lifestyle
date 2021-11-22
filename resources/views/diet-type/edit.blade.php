@@ -1,6 +1,9 @@
 @extends('layouts.details')
 
 @section('content')
+    @foreach ($errors->all() as $error)
+        <p class="text-danger">{{ $error }}</p>
+    @endforeach
 <form action="/diet-types/{{ $dietType->id }}" method="POST">
     @csrf
     @method('PUT')

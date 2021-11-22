@@ -16,7 +16,7 @@ class CreateDietsTable extends Migration
         Schema::create('diets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('food_id')->constrained('foods');
+            $table->foreignId('food_id')->constrained('foods')->onDelete('cascade');
             $table->enum('course', ['breakfast', 'lunch', 'dinner', 'snack']);
             $table->date('date');
             $table->timestamps();

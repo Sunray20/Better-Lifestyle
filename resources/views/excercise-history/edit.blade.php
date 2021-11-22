@@ -1,6 +1,9 @@
 @extends('layouts.details')
 
 @section('content')
+    @foreach ($errors->all() as $error)
+        <p class="text-danger">{{ $error }}</p>
+    @endforeach
 <form action="/excercise-history/{{ $excerciseHistory->id }}" method="POST">
     @csrf
     @method('PUT')

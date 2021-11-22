@@ -1,11 +1,14 @@
 @extends('layouts.details')
+
 @section('content')
+
+@foreach ($errors->all() as $error)
+    <p class="text-danger">{{ $error }}</p>
+@endforeach
+
 <form action="/user/{{ $user->id }}" method="POST">
     @csrf
     @method('PUT')
-    @foreach ($errors->all() as $error)
-        {{ $error }}
-    @endforeach
 
     <div class="row">
         <div class="col-lg-3 col-sm-0"></div>

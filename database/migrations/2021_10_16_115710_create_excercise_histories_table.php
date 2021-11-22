@@ -15,8 +15,8 @@ class CreateExcerciseHistoriesTable extends Migration
     {
         Schema::create('excercise_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('excercise_id')->constrained('excercises');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('excercise_id')->constrained('excercises')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->unsignedInteger('target_amount');
             $table->unsignedInteger('achieved_amount')->default(0);
             $table->unsignedInteger('target_weight');

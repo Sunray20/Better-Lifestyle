@@ -1,11 +1,10 @@
 @extends('layouts.details')
 
 @section('content')
-@if ($errors)
-    @foreach ($errors->all() as $message)
-        {{ $message }}
-    @endforeach
-@endif
+
+@foreach ($errors->all() as $error)
+    <p class="text-danger">{{ $error }}</p>
+@endforeach
 
 <form action="/ingredients" method="POST" enctype="multipart/form-data">
     @csrf

@@ -15,7 +15,7 @@ class CreateIngredientsTable extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->default(1);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->default(1);
             $table->string('name', 80);
             $table->unsignedInteger('calorie');
             $table->double('protein', 5, 1);

@@ -12,3 +12,24 @@ Installation process:
 7.1 If you get the 'error driver not found' error, then edit php.ini()
     Search for line ';extension=pdo_mysql.so' and remove the ';' character
 8. Run 'php artisan serve' command and open the link to the local website
+
+Usage:
+1. Login / Register / Logout
+The database has demo data to try out the functionalities of the application.
+The admin user is avaliable from the start so is a basic user.
+Admin: 
+    user: admin@gmail.com
+    pass: admin
+User:
+    user: test@gmail.com
+    pass: test
+
+It is possible to register a new basic user with the 'Register' button.
+After filling out the form the new user will be authenticated automatically.
+However accessing most functions requires an email address validation.
+The email is sent from a better-lifestyle account with a link in it.
+After validation every user functions will be available to the user.
+
+The login and logout methods are straightforward.
+
+2. 

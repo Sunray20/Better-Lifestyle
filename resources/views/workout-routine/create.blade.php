@@ -1,21 +1,21 @@
 @extends('layouts.details')
 
 @section('content')
+
 @foreach ($errors->all() as $error)
     <p class="text-danger">{{ $error }}</p>
 @endforeach
-<form method="POST" action="{{ route('password.update') }}">
+
+<form action="/workout-routines" method="POST">
     @csrf
-    <!-- Password Reset Token -->
-    <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
     <div class="row">
         <div class="col-lg-3 col-sm-0"></div>
         <div class="col-lg-3 col-sm-12 data-label">
-            <label for="email">Email </label>
+            <label for="name">Name: </label>
         </div>
         <div class="col-lg-3 col-sm-12 data">
-            <input class="form-control" id="email" type="email" name="email" value="{{ old('email', $request->email) }}" required autofocus >
+            <input class="form-control" type="text" name="name" placeholder="Name of routine...">
         </div>
         <div class="col-lg-3 col-sm-0"></div>
     </div>
@@ -23,13 +23,10 @@
     <div class="row">
         <div class="col-lg-3 col-sm-0"></div>
         <div class="col-lg-3 col-sm-12 data-label">
-            <label for="password">Password </label>
+            <label for="description">Description: </label>
         </div>
         <div class="col-lg-3 col-sm-12 data">
-            <input class="form-control" id="password"
-            type="password"
-            name="password"
-            required >
+            <textarea class="form-control" name="description" cols="40" rows="10" style="resize:none;"></textarea>
         </div>
         <div class="col-lg-3 col-sm-0"></div>
     </div>
@@ -37,22 +34,24 @@
     <div class="row">
         <div class="col-lg-3 col-sm-0"></div>
         <div class="col-lg-3 col-sm-12 data-label">
-            <label for="password_confirmation">Password again </label>
+            <label for="name">Excercises: </label>
         </div>
         <div class="col-lg-3 col-sm-12 data">
-            <input class="form-control" id="password_confirmation"
-            type="password"
-            name="password_confirmation"
-            required>
+            @foreach ($excercises as $excercise)
+                <input class="form-check-input" type="checkbox" name="{{ $excercise->name }}">
+                <label class="form-label" for="{{ $excercise->name }}">{{ $excercise->name }}</label>
+            @endforeach
         </div>
         <div class="col-lg-3 col-sm-0"></div>
     </div>
 
     <div class="row pt-3">
         <div class="col-lg-3"></div>
-        <div class="col-lg-3 data-label"></div>
+        <div class="col-lg-3 data-label">
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">Return</a>
+        </div>
         <div class="col-lg-3 data">
-            <input type="submit" value="Reset password" class="btn btn-primary">
+            <input type="submit" value="Submit" class="btn btn-primary">
         </div>
         <div class="col-lg-3"></div>
     </div>
