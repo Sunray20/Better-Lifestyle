@@ -37,7 +37,7 @@
                     </div>
 
                     @if ($food->user_id == auth()->user()->id || auth()->user()->is_admin == 1)
-                        <button class="btn"><a href="/foods/{{ $food->id }}/edit" class="btn btn-primary">Edit food</a></button>
+                        <p><a href="/foods/{{ $food->id }}/edit" class="btn btn-primary">Edit food</a></p>
                         <form action="/foods/{{ $food->id }}" method="POST">
                             @csrf
                             @method('delete')
@@ -50,12 +50,7 @@
         <div class="row pb-4">
             <div class="col-12">
                 <div class="w-100 text-center">
-                    <span class="paginate-items has-more-false">
-                        <i class="fas fa-arrow-circle-left fa-2x"></i>
-                    </span>
-                    <span class="paginate-items">
-                        <i class="fas fa-arrow-circle-right fa-2x"></i>
-                    </span>
+                    {{ $foods->links() }}
                 </div>
             </div>
         </div>

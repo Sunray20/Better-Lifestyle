@@ -22,7 +22,7 @@ class FoodController extends Controller
         $foodName = $request->input('search');
         if(!empty($foodName))
         {
-            $foods = Food::where('name', 'like', '%'.$foodName.'%')->get();
+            $foods = Food::where('name', 'like', '%'.$foodName.'%')->simplePaginate(4);
             // It is possible to add API call, but we would need to save the
             // Ingredients of the food, which is a lot of api calls
             // TODO: Finish API call
@@ -63,7 +63,7 @@ class FoodController extends Controller
         }
         else
         {
-            $foods = Food::all();
+            $foods = Food::simplePaginate(4);
         }
         return view('food.index', ['foods' => $foods]);
     }
@@ -187,24 +187,33 @@ class FoodController extends Controller
         {
             foreach($ingredients as $ingredient)
             {
+                //[0] - name; [1] - amount; [2] - unit
+                $keyVal = explode('_', $key);
                 // If the field's name is equal to the ingredient->name
-                if($key == $ingredient->name)
+                if($keyVal[0] == $ingredient->name)
                 {
                     // And if the checkbox was checked then insert new
                     // food <-> ingredient connection
                     if($request->input($key) == true) {
+                        //dd($request);
                         FoodIngredient::updateOrCreate(
-                            ['ingredient_id' => $ingredient->id, 'food_id' => $food->id],
+                            ['ingredient_id' => $ingredient->id, 'food_id' => $food->id, 'amount' => $keyVal[1], 'unit' => $keyVal[2]]
                         );
                     }
                 }
             }
         }
 
-        // If an excercise field left unchecked then delete it from pivot table
+        $keysToCheck = [];
+        foreach ($request->except('_token', '_method', 'name',
+         'preparation_time','preparation_difficulty', 'preparation_desc') as $key => $part) {
+            $keyVal = explode('_', $key);
+            $keysToCheck[$keyVal[0]] = 'on';
+        }
+        // If an ingredient field left unchecked then delete it from pivot table
         foreach($ingredients as $ingredient)
         {
-            if($request->get($ingredient->name) == null)
+            if(!array_key_exists($ingredient->name, $keysToCheck))
             {
                 FoodIngredient::where([['ingredient_id', '=', $ingredient->id],
                                         ['food_id', '=', $food->id]])->delete();

@@ -16,12 +16,16 @@ class FoodIngredientSeeder extends Seeder
     {
         DB::table('food_ingredient')->insert([
             'food_id' => 1,
-            'ingredient_id' => 1
+            'ingredient_id' => 1,
+            'unit' => 'g',
+            'amount' => '100',
         ]);
 
         DB::table('food_ingredient')->insert([
             'food_id' => 1,
-            'ingredient_id' => 2
+            'ingredient_id' => 2,
+            'unit' => 'g',
+            'amount' => '100',
         ]);
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-3 col-sm-0"></div>
-        <div class="col-lg-3 col-sm-12 data-label">Sex:  </div>
+        <div class="col-lg-3 col-sm-12 data-label mb-2">Sex:  </div>
         <div class="col-lg-3 col-sm-12 data">{{ $user->sex ? 'Female' : 'Male'}}</div>
         <div class="col-lg-3 col-sm-0"></div>
     </div>
@@ -34,13 +34,37 @@
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-3 data-label">Activity level: </div>
-        <div class="col-lg-3 data">{{ $user->activityLevel->name }}</div>
+        <div class="col-lg-3 data">
+            {{ $user->activityLevel->name }}
+            <span   class="ms-2"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-html="true"
+                    title="
+                        {{ $user->activityLevel->description }}
+                    ">
+                <i class="fas fa-info-circle"></i>
+            </span>
+        </div>
         <div class="col-lg-3"></div>
     </div>
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-3 data-label">Target Calories: </div>
-        <div class="col-lg-3 data">{{ $user->target_kcal }} kcal</div>
+        <div class="col-lg-3 data">
+            {{ $user->target_kcal }} kcal
+            <span   class="ms-2"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    data-bs-html="true"
+                    title="
+                        TDEE (Total Daily Energy Expenditure) = BMI * Activity Level Multiplier <br><br>
+                        BMI (Base Metabolic Rate - for males) = BMR = 10 * weight (kg) + 6.25 * height (cm) – 5 * age (years) + 5 <br><br>
+                        BMI (for females) = BMR = 10 * weight (kg) + 6.25 * height (cm) – 5 * age (years) - 161
+                    ">
+                <i class="fas fa-info-circle"></i>
+            </span>
+        </div>
         <div class="col-lg-3"></div>
     </div>
     <div class="row">
@@ -69,4 +93,8 @@
         </div>
         <div class="col-lg-3"></div>
     </div>
+
+    <script>
+
+    </script>
 @endsection

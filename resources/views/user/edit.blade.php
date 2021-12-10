@@ -99,15 +99,28 @@
     <div class="row">
         <div class="col-lg-3 col-sm-0"></div>
         <div class="col-lg-3 col-sm-12 data-label">
-            <label for="activity_level">Activity level: </label>
+            <label for="activity_level">Activity level:
+                <span   class="ms-2"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        data-bs-html="true"
+                        title="
+                            @foreach ($activityLevels as $activityLevel)
+                                {{ $activityLevel->name . ' - ' . $activityLevel->description . '<br/>' }}
+                            @endforeach
+                        ">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+            </label>
         </div>
         <div class="col-lg-3 col-sm-12 data">
-            <select class="form-select" name="activity_level" id="activity_level">
+            <select class="form-select d-inline" name="activity_level" id="activity_level">
                 @foreach ($activityLevels as $activityLevel)
                     <option value="{{ $activityLevel->id }}"
                         {{ ($activityLevel->id == $user->activityLevel->id) ? 'selected' : '' }}>{{ $activityLevel->name }}</option>
                 @endforeach
             </select>
+
         </div>
         <div class="col-lg-3 col-sm-0"></div>
     </div>
@@ -162,19 +175,19 @@
     });
 
     function transformWeight(selected)
-        {
-            if(weightLastChecked != selected) {
-                weightLastChecked = selected;
+    {
+        if(weightLastChecked != selected) {
+            weightLastChecked = selected;
 
-                if(document.getElementById('kg').checked) {
-                    weight.value = (weight.value / 2.2).toFixed(2);
-                    targetWeight.value = (targetWeight.value / 2.2).toFixed(2);
-                } else if(document.getElementById('pound').checked) {
-                    weight.value = (weight.value * 2.2).toFixed(2);
-                    targetWeight.value = (targetWeight.value * 2.2).toFixed(2);
-                }
+            if(document.getElementById('kg').checked) {
+                weight.value = (weight.value / 2.2).toFixed(2);
+                targetWeight.value = (targetWeight.value / 2.2).toFixed(2);
+            } else if(document.getElementById('pound').checked) {
+                weight.value = (weight.value * 2.2).toFixed(2);
+                targetWeight.value = (targetWeight.value * 2.2).toFixed(2);
             }
         }
+    }
 
     function transformHeight(selected)
     {

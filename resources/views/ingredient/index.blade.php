@@ -47,7 +47,7 @@
                     </p>
                 </div>
                 @if ($ingredient->user_id == auth()->user()->id || auth()->user()->is_admin == 1)
-                    <button class="btn"><a href="/ingredients/{{ $ingredient->id }}/edit" class="btn btn-primary">Edit ingredient</a></button>
+                    <p><a href="/ingredients/{{ $ingredient->id }}/edit" class="btn btn-primary">Edit ingredient</a></p>
                     <form action="/ingredients/{{ $ingredient->id }}" method="POST">
                         @csrf
                         @method('delete')
@@ -60,15 +60,11 @@
     <div class="row pb-4">
         <div class="col-12">
             <div class="w-100 text-center">
-                <span class="paginate-items has-more-false">
-                    <i class="fas fa-arrow-circle-left fa-2x"></i>
-                </span>
-                <span class="paginate-items">
-                    <i class="fas fa-arrow-circle-right fa-2x"></i>
-                </span>
+                {{ $ingredients->links() }}
             </div>
         </div>
     </div>
+
 @endisset
 
 @if($ingredients->isEmpty())
@@ -77,7 +73,7 @@
             Oops! There seems to be no result for the ingredient!
         </h4>
         <p class="card-subtitle">
-            <a href="/ingredients/create" class="btn btn-warning">Add new ingredient</a>
+            <a href="/ingredients/create" class="btn btn-light">Add new ingredient</a>
         </p>
     </div>
 

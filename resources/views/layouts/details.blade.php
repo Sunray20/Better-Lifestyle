@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="" />
     <meta name="author" content="David Jakab" />
-    <title>Better Health</title>
+    <title>Better Lifestyle</title>
 
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
@@ -97,7 +97,7 @@
         </div>
     </nav>
 
-    <header class="masthead bg-primary text-white text-center d-flex justify-content-center align-items-center">
+    <header class="bg-primary text-white text-center d-flex justify-content-center align-items-center">
         <section class="details-container d-flex bg-primary text-center bg-white align-items-center">
             <div class="container text-secondary text-left">
                 @yield('content')
@@ -145,6 +145,10 @@
         {
             $('#logout').submit();
         }
+
+        $(document).ready(function() {
+            $("body").tooltip({ selector: '[data-bs-toggle=tooltip]' });
+        });
     </script>
 
 </body>

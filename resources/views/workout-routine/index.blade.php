@@ -38,7 +38,7 @@
         </h4>
         @if (auth()->user()->is_admin == 1)
             <p class="card-subtitle">
-                <a href="/workout-routines/create" class="btn btn-warning">Add new routine</a>
+                <a href="/workout-routines/create" class="btn btn-light">Add new routine</a>
             </p>
         @endif
     </div>

@@ -7,7 +7,7 @@
 <form method="POST" action="{{ route('login') }}">
     @csrf
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-lg-3 col-sm-0"></div>
         <div class="col-lg-3 col-sm-12 data-label">
             <label for="email">Email </label>
@@ -18,7 +18,7 @@
         <div class="col-lg-3 col-sm-0"></div>
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-lg-3 col-sm-0"></div>
         <div class="col-lg-3 col-sm-12 data-label">
             <label for="password">Password </label>
@@ -46,7 +46,7 @@
         <div class="col-lg-3"></div>
         <div class="col-lg-3 data-label">
             @if (Route::has('password.request'))
-                <a class="btn btn-secondary" href="{{ route('password.request') }}">
+                <a class="link link-secondary" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif

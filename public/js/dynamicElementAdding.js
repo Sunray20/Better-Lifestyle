@@ -26,11 +26,10 @@ $(document).ready(function(){
     });
 });
 
-function addToIngredientList(elementToAdd)
+function addToIngredientList(elementToAdd, amount, unit)
 {
-    let createCheckbox = '<input class="form-check-input" type="checkbox" name="' + elementToAdd +'" checked>';
-    let createLabel = '<label class="form-label" for="remember_me">' + elementToAdd + '</label>';
-
+    let createCheckbox = '<input class="form-check-input" type="checkbox" name="' + elementToAdd +'_'+ amount +'_'+ unit +'" checked>';
+    let createLabel = '<label class="form-label">' + elementToAdd + '(' + amount + unit + ')</label>';
 
     let ingredientsContainer = $('#ingredients')[0];
     $(ingredientsContainer).append(createCheckbox);
@@ -39,10 +38,21 @@ function addToIngredientList(elementToAdd)
 
 function removeFromPossibleIngredientList(elementToRemove)
 {
-    // The name of the food
-    let elementToAdd = $(elementToRemove).prev()[0];
-    addToIngredientList($(elementToAdd).text());
-    $('#possibleIngredients').empty();
-    // Empty search bar
-    $('#search').val('');
+    let amount = document.getElementById("amount").value;
+    let unit = $( "#unit option:selected" ).text();
+
+    if(amount != '' && unit != '')
+    {
+        // The name of the food
+        let elementToAdd = $(elementToRemove).prev()[0];
+        addToIngredientList($(elementToAdd).text(), amount, unit);
+        $('#possibleIngredients').empty();
+        // Empty search bar
+        $('#search').val('');
+        document.getElementById('errorMessages').innerHTML = "";
+    }
+    else
+    {
+        document.getElementById('errorMessages').innerHTML = "<span class='text-danger'>The amount and unit fields are required!</span>";
+    }
 }

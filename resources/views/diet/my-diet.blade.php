@@ -108,7 +108,6 @@
                     @if (array_key_exists(date('Y-m-d', strtotime($monday . ' +' . $i .' days')), $data))
                         @foreach ($data[date('Y-m-d', strtotime($monday . ' +' . $i .' days'))] as $key => $item)
                                 <td class="text-center">
-                                    @dd($item[0])
                                     <a href="/foods/{{ $item[0]->food_id }}/edit" class="btn btn-primary">
                                         {{ $item[0]->food->name }}
                                     </a>
