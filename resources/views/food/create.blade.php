@@ -82,7 +82,7 @@
         <div class="col-lg-3 col-sm-0"></div>
     </div>
 
-    <button type="button" class="btn btn-success mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#createModal">
+    <button type="button" class="btn btn-light mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#createModal">
         Add new ingredient
     </button>
 

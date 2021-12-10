@@ -22,7 +22,7 @@ class Food extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredient::class, 'food_ingredient');
+        return $this->belongsToMany(Ingredient::class, 'food_ingredient')->withPivot('amount', 'unit');
     }
 
     public function incompatibleDiets()
@@ -41,10 +41,15 @@ class Food extends Model
         $ingredients = $this->ingredients;
         foreach($ingredients as $ingredient)
         {
-            $macros->calorie += $ingredient->calorie;
-            $macros->protein += $ingredient->protein;
-            $macros->carb += $ingredient->carb;
-            $macros->fat += $ingredient->fat;
+            $amount = $ingredient->amount;
+            $actualAmount = $ingredient->pivot->amount;
+            $percentage = ($actualAmount / $amount) * 100;
+            //dd($percentage);
+
+            $macros->calorie += round((($ingredient->calorie / 100) * $percentage), 0);
+            $macros->protein += round((($ingredient->protein / 100) * $percentage), 1);
+            $macros->carb += round((($ingredient->carb / 100) * $percentage), 1);
+            $macros->fat += round((($ingredient->fat / 100) * $percentage), 1);
         }
 
         return $macros;

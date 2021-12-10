@@ -15,10 +15,20 @@
             <div class="modal-body">
                 <div class="row">
                     <input id="search" type="text" class="form-control" name="search" placeholder="Search for a ingredient...">
-                    <button id="sendSearchRequest">Search</button>
+                    <input id="amount" type="text" class="form-control" name="amount" placeholder="Amount...">
+                    <select class="form-select" id="unit" name="unit">
+                        <option value="g" selected>g</option>
+                        <option value="pound">pound</option>
+                        <option value="dL">dL</option>
+                        <option value="mL">mL</option>
+                    </select>
+                    <p><a href="#" id="sendSearchRequest" class="btn btn-success mt-3">Search</a></p>
                     <div id="possibleIngredients">
 
                     </div>
+                    <span id="errorMessages">
+
+                    </span>
                 </div>
             </div>
         </div>
@@ -84,7 +94,7 @@
         <div class="col-lg-3 col-sm-0"></div>
     </div>
 
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
+    <button type="button" class="btn btn-light mb-3" data-bs-toggle="modal" data-bs-target="#createModal">
         Add new ingredient
     </button>
 
@@ -95,8 +105,8 @@
         </div>
         <div id="ingredients" class="col-lg-3 col-sm-12 text-start data">
             @foreach ($food->ingredients as $ingredient)
-                <input class="form-check-input" type="checkbox" name="{{ $ingredient->name }}" checked>
-                <label class="form-check-label" for="{{ $ingredient->name }}">{{ $ingredient->name }}</label>
+                <input class="form-check-input" type="checkbox" name="{{ $ingredient->name.'_'.$ingredient->pivot->amount.'_'.$ingredient->pivot->unit }}" checked>
+                <label class="form-check-label" for="{{ $ingredient->name }}">{{ $ingredient->name.'('.$ingredient->pivot->amount.$ingredient->pivot->unit.')' }}</label>
             @endforeach
         </div>
         <div class="col-lg-3 col-sm-0"></div>

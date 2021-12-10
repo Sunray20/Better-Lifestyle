@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="" />
     <meta name="author" content="David Jakab" />
-    <title>Better Health</title>
+    <title>Better Lifestyle</title>
 
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}" />
@@ -145,7 +145,10 @@
         {
             $('#logout').submit();
         }
-    </script>
 
+        $(document).ready(function() {
+            $("body").tooltip({ selector: '[data-bs-toggle=tooltip]' });
+        });
+    </script>
 </body>
 </html>

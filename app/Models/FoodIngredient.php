@@ -11,7 +11,7 @@ class FoodIngredient extends Model
 
     protected $table = 'food_ingredient';
 
-    protected $fillable = ['food_id', 'ingredient_id'];
+    protected $fillable = ['food_id', 'ingredient_id', 'amount', 'unit'];
 
     public $timestamps = false;
 }

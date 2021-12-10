@@ -29,14 +29,14 @@ class IngredientController extends Controller
         $ingredientName = $request->input('search');
         if(!empty($ingredientName))
         {
-            $ingredients = Ingredient::where('name', 'like', '%'.$ingredientName.'%')->get();
+            $ingredients = Ingredient::where('name', 'like', '%'.$ingredientName.'%')->simplePaginate(4);
             if($ingredients->isEmpty())
             {
                 $client = new Client();
                 $res = $client->request('GET', 'https://api.spoonacular.com/food/ingredients/search?query='.$ingredientName.'&apiKey='.env('FOOD_API_KEY'));
-                if($res->getStatusCode() == 200)
+                $decodedResults = json_decode($res->getBody())->results;
+                if($decodedResults)
                 {
-                    $decodedResults = json_decode($res->getBody())->results;
                     // The API gives back false results so only use the first one
                     // Thats the most accurate
 
@@ -76,7 +76,7 @@ class IngredientController extends Controller
                             }
                         }
                         $ingredient->save();
-                        $ingredients = Ingredient::where('name', 'like', '%'.$ingredientName.'%')->get(); //Not the best
+                        $ingredients = Ingredient::where('name', 'like', '%'.$ingredientName.'%')->simplePaginate(4); //Not the best
                         return view('ingredient.index', ['ingredients' => $ingredients]);
                     }
                 }
@@ -84,7 +84,7 @@ class IngredientController extends Controller
         }
         else
         {
-            $ingredients = Ingredient::all();
+            $ingredients = Ingredient::simplePaginate(4);
         }
         return view('ingredient.index', ['ingredients' => $ingredients]);
     }

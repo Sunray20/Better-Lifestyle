@@ -11299,16 +11299,23 @@ html {
 }
 
 .details-container {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding-top: 50px;
     height: 100%;
     width: 100%;
 }
 
 @media (min-width: 1200px) {
     .details-container {
-        height: 90%;
+        margin-top: 172px;
+        margin-bottom: 100px;
+        padding-top: 50px;
+        height: 100%;
         width: 50%;
+        min-height: 780px;
     }
- }
+}
 
 .items-list {
     padding-top: 72px;
@@ -11397,15 +11404,34 @@ html {
     text-align: left !important;
     font-size: 1.1rem;
     font-weight: 900;
+    margin-bottom: 0.5rem;
 }
 
 .data {
     text-align: left;
     font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 1200px) {
+    .data-label {
+        text-align: left !important;
+        font-size: 1.1rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+    }
+
+    .data {
+        text-align: left;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
 }
 
 .bounding-box-image {
     width: 100%;
     height: 10vw !important;
     object-fit: contain !important;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }

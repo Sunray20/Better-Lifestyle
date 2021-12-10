@@ -108,12 +108,12 @@
                     @if (array_key_exists(date('Y-m-d', strtotime($monday . ' +' . $i .' days')), $data))
                         @foreach ($data[date('Y-m-d', strtotime($monday . ' +' . $i .' days'))] as $key => $item)
                                 <td class="text-center">
-                                    <a href="/diet/{{ $item[0]->id }}/edit" class="btn btn-primary">
+                                    <a href="/foods/{{ $item[0]->food_id }}/edit" class="btn btn-primary">
                                         {{ $item[0]->food->name }}
                                     </a>
                                 </td>
                                 <td>
-                                    <form action="/diet/{{ $item[0]->id }}" method="POST">
+                                    <form action="/foods/{{ $item[0]->food_id }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger">X</button>

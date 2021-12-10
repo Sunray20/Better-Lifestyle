@@ -17,6 +17,8 @@ class CreateFoodIngredientTable extends Migration
             $table->id();
             $table->foreignId('food_id')->constrained('foods')->onDelete('cascade');
             $table->foreignId('ingredient_id')->constrained('ingredients')->onDelete('cascade');
+            $table->enum('unit', ['g', 'pound', 'dL', 'mL']);
+            $table->double('amount', 8, 3);
         });
     }
 

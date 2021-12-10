@@ -19,7 +19,7 @@ class ActivityLevelSeeder extends Seeder
             ['name' => 'Lightly active',    'description' => 'Sports 1-3 days/week', 'activity_factor_for_tdee' => 1.375],
             ['name' => 'Moderately active', 'description' => 'Sports 3-5 days/week', 'activity_factor_for_tdee' => 1.55],
             ['name' => 'Very active',       'description' => 'Sports 6-7 days a week', 'activity_factor_for_tdee' => 1.725],
-            ['name' => 'Extra active',      'description' => '(very hard exercise and a physical job', 'activity_factor_for_tdee' => 1.9],
+            ['name' => 'Extra active',      'description' => 'Very hard exercise and a physical job', 'activity_factor_for_tdee' => 1.9],
         ];
         DB::table('activity_levels')->insert($data);
     }

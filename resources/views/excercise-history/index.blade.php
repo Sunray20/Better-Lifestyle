@@ -27,7 +27,7 @@
             Date: {{ $excerciseHistory->date }}
         </p>
 
-        <a href="excercise-history/{{ $excerciseHistory->id }}/edit" class="btn btn-primary">Edit entry</a>
+        <p><a href="excercise-history/{{ $excerciseHistory->id }}/edit" class="btn btn-primary mt-3">Edit entry</a></p>
         <form action="excercise-history/{{ $excerciseHistory->id }}" method="POST">
             @csrf
             @method('delete')

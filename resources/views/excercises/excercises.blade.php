@@ -5,7 +5,7 @@
 @if (auth()->user()->is_admin)
     <div class="card-body">
         <p class="card-subtitle">
-            <a href="/excercises/create" class="btn btn-success">Add new excercise</a>
+            <a href="/excercises/create" class="btn btn-light mt-3">Add new excercise</a>
         </p>
     </div>
 @endif
