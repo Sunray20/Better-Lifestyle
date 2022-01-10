@@ -113,7 +113,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <form action="/foods/{{ $item[0]->food_id }}" method="POST">
+                                    <form action="/diet/{{ $item[0]->id }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-danger">X</button>

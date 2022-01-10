@@ -14,11 +14,21 @@
 
             <div class="modal-body">
                 <div class="row">
-                    <input id="search" type="text" class="form-control" name="search" placeholder="Search for a ingredient...">
-                    <button id="sendSearchRequest">Search</button>
-                    <div id="possibleIngredients">
+                    <input id="search" type="text" class="form-control mt-3" name="search" placeholder="Search for a ingredient...">
+                    <input id="amount" type="text" class="form-control mt-3" name="amount" placeholder="Amount...">
+                    <select class="form-select mt-3" id="unit" name="unit">
+                        <option value="g" selected>g</option>
+                        <option value="pound">pound</option>
+                        <option value="dL">dL</option>
+                        <option value="mL">mL</option>
+                    </select>
+                    <p><a href="#" id="sendSearchRequest" class="btn btn-success mt-3">Search</a></p>
+                    <div id="possibleIngredients" class="mt-1 mb-2">
 
                     </div>
+                    <span id="errorMessages">
+
+                    </span>
                 </div>
             </div>
         </div>
@@ -82,7 +92,7 @@
         <div class="col-lg-3 col-sm-0"></div>
     </div>
 
-    <button type="button" class="btn btn-light mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#createModal">
+    <button type="button" class="btn btn-secondary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#createModal">
         Add new ingredient
     </button>
 

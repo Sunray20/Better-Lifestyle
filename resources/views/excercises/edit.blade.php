@@ -40,14 +40,20 @@
             <label for="name">Excercise type: </label>
         </div>
         <div class="col-lg-3 col-sm-12 data">
-            @foreach ($excercise->excerciseTypes as $type)
-                <input class="form-check-input" type="checkbox" name="{{ $type->name }}" checked>
-                <label class="form-label" for="{{ $type->name }}">{{ $type->name }}</label>
-            @endforeach
-            @foreach ($unselectedExcerciseTypes as $type)
-                <input class="form-check-input" type="checkbox" name="{{ $type->name }}">
-                <label class="form-label" for="{{ $type->name }}">{{ $type->name }}</label>
-            @endforeach
+            <div class="row">
+                @foreach ($excercise->excerciseTypes as $type)
+                    <div class="col-lg-6">
+                        <input class="form-check-input" type="checkbox" name="{{ $type->name }}" checked>
+                        <label class="form-label" for="{{ $type->name }}">{{ $type->name }}</label>
+                    </div>
+                @endforeach
+                @foreach ($unselectedExcerciseTypes as $type)
+                    <div class="col-lg-6">
+                        <input class="form-check-input" type="checkbox" name="{{ $type->name }}" checked>
+                        <label class="form-label" for="{{ $type->name }}">{{ $type->name }}</label>
+                    </div>
+                @endforeach
+            </div>
         </div>
         <div class="col-lg-3 col-sm-0"></div>
     </div>
@@ -55,9 +61,7 @@
     <div class="row">
         <div class="col-lg-3 col-sm-0"></div>
         <div class="col-lg-6 col-sm-12 data">
-            <textarea class="form-control" name="description" id="" cols="30" rows="10">
-                {{ $excercise->description }}
-            </textarea>
+            <textarea class="form-control" name="description" id="" cols="30" rows="10">{{ $excercise->description }}</textarea>
         </div>
         <div class="col-lg-3 col-sm-0"></div>
     </div>

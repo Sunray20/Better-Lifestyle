@@ -24,7 +24,7 @@ Route::get('/', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::resource('/excercises', ExcerciseController::class)->middleware(['auth', 'verified', 'is_admin']);
+Route::resource('/excercises', ExcerciseController::class)->middleware(['auth', 'verified']);
 //Route::get('/excercises', [ExcerciseController::class, 'index'])->middleware(['auth', 'verified']);
 Route::get('/excercises/{excercise}', [ExcerciseController::class, 'getExcercisesByType'])->middleware(['auth', 'verified'])->name('excerciseType');
 Route::get('/excercises/{excercise_type}/{excercise}', [ExcerciseController::class, 'show'])->middleware(['auth', 'verified']);

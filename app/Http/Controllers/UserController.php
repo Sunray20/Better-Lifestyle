@@ -71,7 +71,7 @@ class UserController extends Controller
         //If the user deletes it's profile he should be logged out
         $user->delete();
 
-        return redirect('/logout');
+        return redirect('/login');
     }
 
     /**

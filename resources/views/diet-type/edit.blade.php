@@ -25,7 +25,7 @@
             <label for="description">Description: </label>
         </div>
         <div class="col-lg-3 col-sm-12 data">
-            <input class="form-control" type="text" name="description" value="{{ $dietType->description }}">
+            <textarea class="form-control" name="description">{{ $dietType->description }}</textarea>
         </div>
         <div class="col-lg-3 col-sm-0"></div>
     </div>

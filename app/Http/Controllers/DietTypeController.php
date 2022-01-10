@@ -95,9 +95,9 @@ class DietTypeController extends Controller
     public function destroy(DietType $dietType)
     {
         if(auth()->user()->is_admin == 1) {
-            $ingredient->delete();
+            $dietType->delete();
         }
 
-        return redirect('/ingredients');
+        return redirect('/diet-types');
     }
 }
