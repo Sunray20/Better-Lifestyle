@@ -52,6 +52,7 @@ class IngredientController extends Controller
                         $ingredient->user_id = auth()->user()->id;
                         $ingredient->amount = 100; // Always search for 100 (grams)
                         $ingredient->validated = 1;
+                        $ingredient->unit = (in_array($decodedVal->unitShort, ['g', 'mL', 'dL', 'pound'])) ? $decodedVal->unitShort : 'g';;
 
                         foreach($decodedNutritions->nutrients as $key => $nutrient)
                         {
@@ -59,19 +60,15 @@ class IngredientController extends Controller
                             {
                                 case 'Calories':
                                     $ingredient->calorie = $nutrient->amount;
-                                    $ingredient->unit = $nutrient->unit;
                                     break;
                                 case 'Protein':
                                     $ingredient->protein = $nutrient->amount;
-                                    $ingredient->unit = $nutrient->unit;
                                     break;
                                 case 'Carbohydrates':
                                     $ingredient->carb = $nutrient->amount;
-                                    $ingredient->unit = $nutrient->unit;
                                     break;
                                 case 'Fat':
                                     $ingredient->fat = $nutrient->amount;
-                                    $ingredient->unit = $nutrient->unit;
                                     break;
                             }
                         }

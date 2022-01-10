@@ -180,6 +180,9 @@ class ExcerciseController extends Controller
      */
     public function destroy(Excercise $excercise)
     {
+        if($excercise->image_path) {
+            unlink(public_path() . '/images/excercises/' . $excercise->image_path);
+        }
         $excercise->delete();
 
         return redirect('/excercises');

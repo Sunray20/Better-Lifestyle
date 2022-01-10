@@ -5,11 +5,14 @@
 <div class="row mb-3">
     <div class="col-lg-3 col-sm-0"></div>
     <div class="card col-lg-6 col-sm-12">
-        @isset($excercise->image_path)
-            <img src="{{ asset('images/') . '/' . $excercise->image_path }}" alt="Image of a food" class="bounding-box-image">
+        @if($excercise->image_path !== null && file_exists(public_path('images/excercises/' . $excercise->image_path)))
+            <img src="{{ asset('images/excercises/') . '/' . $excercise->image_path}}"
+                class="card-img-top"
+                alt="Image of {{ $excercise->name }}"
+                class="bounding-box-image">
         @else
-            <img src="{{ asset('images/missing_image.png') }}" alt="Missing food image" class="bounding-box-image">
-        @endisset
+            <img src="{{ asset('images/missing_image.png') }}" alt="Missing image" class="bounding-box-image">
+        @endif
     </div>
     <div class="col-lg-3 col-sm-0"></div>
 </div>

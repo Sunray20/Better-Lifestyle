@@ -2,11 +2,13 @@
 
 @section('content')
 
-<div class="card-body">
-    <p class="card-subtitle">
-        <a href="/workout-routines/create" class="btn btn-light">Add new routine</a>
-    </p>
-</div>
+@if (auth()->user()->is_admin == 1)
+    <div class="card-body">
+        <p class="card-subtitle">
+            <a href="/workout-routines/create" class="btn btn-light">Add new routine</a>
+        </p>
+    </div>
+@endif
 
 @isset($workoutRoutines)
     @foreach ($workoutRoutines as $workoutRoutine)
